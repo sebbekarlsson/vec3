@@ -51,7 +51,7 @@ Vector3 vector3_scale(Vector3 a, float scale) {
   return VEC3(a.x * scale, a.y * scale, a.z * scale);
 }
 
-Vector3 vector_downscale(Vector3 a, float scale) {
+Vector3 vector3_downscale(Vector3 a, float scale) {
   return VEC3(a.x / scale, a.y / scale, a.z / scale);
 }
 
@@ -206,4 +206,36 @@ Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b) {
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N) {
   return vector3_sub(I, vector3_mul(vector3_scale(N, 2.0f), vector3_mul(I, N)));
+}
+
+
+float vector3_angle3d(Vector3 a) {
+  Vector3 n = vector3_unit(a);
+  return vector3_angle3d_to(VEC3(0, 0, 0), n);
+}
+float vector3_angle3d_to(Vector3 a, Vector3 b) {
+  return glm_vec3_angle((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z});
+/*  float dot = vector3_dot(a, b);
+  float mag_a = vector3_mag(a);
+  float mag_b = vector3_mag(b);
+  float frac = dot / (mag_a * mag_b);
+  return roundf((acosf(frac) * 180) / M_PI);*/
+}
+Vector3 vector3_angle3d_to_radians_vector(Vector3 a, Vector3 b) {
+
+  Vector3 n1 = vector3_unit(a);
+  Vector3 n2 = vector3_unit(a);
+  Vector3 r = vector3_sub(n1, n2);
+
+
+  return VEC3(glm_rad(r.x), glm_rad(r.y), glm_rad(r.z));
+}
+
+Vector3 vector3_angle3d_to_deg_vector(Vector3 a, Vector3 b) {
+
+  Vector3 n1 = vector3_unit(a);
+  Vector3 n2 = vector3_unit(a);
+  Vector3 r = vector3_sub(n1, n2);
+
+  return VEC3(glm_deg(glm_rad(r.x)), glm_deg(glm_rad(r.y)), glm_deg(glm_rad(r.z)));
 }
