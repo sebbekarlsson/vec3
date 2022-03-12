@@ -84,6 +84,8 @@ Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b);
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N);
 
+Vector3 vector3_xz(Vector3 v);
+
 void vector2_copy(Vector2 *dest, Vector2 src);
 Vector2 vector2_add(Vector2 a, Vector2 b);
 

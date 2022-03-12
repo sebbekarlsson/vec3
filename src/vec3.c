@@ -239,3 +239,7 @@ Vector3 vector3_angle3d_to_deg_vector(Vector3 a, Vector3 b) {
 
   return VEC3(glm_deg(glm_rad(r.x)), glm_deg(glm_rad(r.y)), glm_deg(glm_rad(r.z)));
 }
+
+Vector3 vector3_xz(Vector3 v) {
+  return VEC3(v.x, 0, v.z);
+}
