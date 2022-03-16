@@ -14,7 +14,7 @@ typedef struct {
   int64_t vi3;
 } VEC3TriangleIndexed;
 
-void vec3_triangulate(Vector3** vectors, uint32_t vectors_length, VEC3Triangle* triangles, uint32_t *triangles_length);
+void vec3_triangulate(Vector3* vectors, uint32_t vectors_length, VEC3Triangle* triangles, uint32_t *triangles_length);
 
 
 void vec3_sort_triangles(VEC3Triangle* triangles, uint32_t length);
