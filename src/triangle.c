@@ -15,7 +15,6 @@ void vec3_triangulate(Vector3* vectors, uint32_t vectors_length, VEC3Triangle* t
     vector3_copy(&triangle->v1, v1);
     vector3_copy(&triangle->v2, v2);
     vector3_copy(&triangle->v3, v3);
-    triangles[tri_count] = *triangle;
     tri_count++;
   }
 

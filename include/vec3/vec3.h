@@ -33,6 +33,11 @@ typedef struct {
 } Vector2;
 
 typedef struct {
+  long double x;
+  long double y;
+} Vector2Double;
+
+typedef struct {
   int64_t x;
   int64_t y;
 } Vector2i64;
@@ -87,9 +92,14 @@ Vector3 vector3_reflect(Vector3 I, Vector3 N);
 Vector3 vector3_xz(Vector3 v);
 
 void vector2_copy(Vector2 *dest, Vector2 src);
+void vector2Double_copy(Vector2Double *dest, Vector2Double src);
 Vector2 vector2_add(Vector2 a, Vector2 b);
 
 Vector3 vector_downscale(Vector3 a, float scale);
+
+
+Vector3 vector3_find_min_vec(Vector3* vectors, uint32_t length);
+Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length);
 
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})

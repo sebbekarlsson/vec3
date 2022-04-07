@@ -25,6 +25,11 @@ void vector2_copy(Vector2 *dest, Vector2 src) {
   dest->y = src.y;
 }
 
+void vector2Double_copy(Vector2Double *dest, Vector2Double src) {
+  dest->x = src.x;
+  dest->y = src.y;
+}
+
 Vector2 vector2_add(Vector2 a, Vector2 b) { return VEC2(a.x + b.x, a.y + b.y); }
 
 void vector3_string(Vector3 a, char *buffer) {
@@ -242,4 +247,36 @@ Vector3 vector3_angle3d_to_deg_vector(Vector3 a, Vector3 b) {
 
 Vector3 vector3_xz(Vector3 v) {
   return VEC3(v.x, 0, v.z);
+}
+Vector3 vector3_find_min_vec(Vector3* vectors, uint32_t length) {
+  Vector3 min = vectors[0];
+  float min_mag = INFINITY;
+
+  for (uint32_t i = 0; i  < length; i++) {
+    Vector3 v = vectors[i];
+    float mag = vector3_sum(v);
+
+    if (mag < min_mag) {
+      min = v;
+      min_mag = mag;
+    }
+  }
+
+  return min;
+}
+Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length) {
+  Vector3 max = vectors[0];
+  float max_mag = -INFINITY;
+
+  for (uint32_t i = 0; i  < length; i++) {
+    Vector3 v = vectors[i];
+    float mag = vector3_sum(v);
+
+    if (mag > max_mag) {
+      max = v;
+      max_mag = mag;
+    }
+  }
+
+  return max;
 }
