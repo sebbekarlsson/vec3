@@ -18,4 +18,6 @@ void vec3_triangulate(Vector3* vectors, uint32_t vectors_length, VEC3Triangle* t
 
 
 void vec3_sort_triangles(VEC3Triangle* triangles, uint32_t length);
+
+Vector3 vec3_triangle_get_area(VEC3Triangle triangle);
 #endif

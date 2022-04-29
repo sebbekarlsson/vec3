@@ -280,3 +280,26 @@ Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length) {
 
   return max;
 }
+
+Vector3 vector3_find_closest_to_point(Vector3* vectors, uint64_t length, Vector3 point, int64_t skip_index, uint64_t* out_index) {
+  if (!vectors || !length) return point;
+  Vector3 closest = point;
+  float min_dist = INFINITY;
+
+
+  for (uint64_t i = 0; i < length; i++) {
+    if (skip_index >= 0 && i == skip_index) continue;
+
+
+    Vector3 v = vectors[i];
+    float dist = fabsf(vector3_distance3d(v, point));
+
+    if (dist < min_dist) {
+      min_dist = dist;
+      closest = v;
+      *out_index = i;
+    }
+  }
+
+  return closest;
+}

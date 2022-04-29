@@ -57,3 +57,18 @@ void sort_triangles(VEC3Triangle* triangles, uint32_t length) {
   if (length <= 0) return;
   qsort(triangles, length, sizeof(VEC3Triangle), compare_triangles);
 }
+
+Vector3 vec3_triangle_get_area(VEC3Triangle triangle) {
+  float min_x = fminf(fminf(triangle.v1.x, triangle.v2.x), triangle.v3.x);
+  float min_y = fminf(fminf(triangle.v1.y, triangle.v2.y), triangle.v3.y);
+  float min_z = fminf(fminf(triangle.v1.z, triangle.v2.z), triangle.v3.z);
+
+
+  float max_x = fmaxf(fmaxf(triangle.v1.x, triangle.v2.x), triangle.v3.x);
+  float max_y = fmaxf(fmaxf(triangle.v1.y, triangle.v2.y), triangle.v3.y);
+  float max_z = fmaxf(fmaxf(triangle.v1.z, triangle.v2.z), triangle.v3.z);
+
+
+
+  return vector3_sub(VEC3(max_x, max_y, max_z), VEC3(min_x, min_y, min_z));
+}
