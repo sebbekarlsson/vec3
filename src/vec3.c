@@ -303,3 +303,17 @@ Vector3 vector3_find_closest_to_point(Vector3* vectors, uint64_t length, Vector3
 
   return closest;
 }
+
+float vector3_get_component(Vector3 vector, int index) {
+  switch (index) {
+    case 0: return vector.x; break;
+    case 1: return vector.y; break;
+    case 2: return vector.z; break;
+    default: {
+      fprintf(stderr, "(vec3): Warning index > 3.\n");
+      return 0;
+    }; break;
+  }
+
+  return 0;
+}

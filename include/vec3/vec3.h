@@ -104,6 +104,9 @@ Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length);
 Vector3 vector3_find_closest_to_point(Vector3* vectors, uint64_t length, Vector3 point, int64_t skip_index, uint64_t* out_index);
 
 
+float vector3_get_component(Vector3 vector, int index);
+
+
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})
 
