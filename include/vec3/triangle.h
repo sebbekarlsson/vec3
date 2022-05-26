@@ -6,6 +6,12 @@ typedef struct {
   Vector3 v1;
   Vector3 v2;
   Vector3 v3;
+
+
+
+  Vector3 uv1;
+  Vector3 uv2;
+  Vector3 uv3;
 } VEC3Triangle;
 
 typedef struct {
