@@ -12,6 +12,8 @@ typedef struct {
   Vector3 uv1;
   Vector3 uv2;
   Vector3 uv3;
+
+  void* mesh;
 } VEC3Triangle;
 
 typedef struct {
