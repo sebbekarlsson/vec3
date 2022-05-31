@@ -7,11 +7,16 @@ typedef struct {
   Vector3 v2;
   Vector3 v3;
 
-
-
   Vector3 uv1;
   Vector3 uv2;
   Vector3 uv3;
+
+
+  Vector3 normal;
+  Vector3 n1;
+  Vector3 n2;
+  Vector3 n3;
+
 
   void* mesh;
 } VEC3Triangle;

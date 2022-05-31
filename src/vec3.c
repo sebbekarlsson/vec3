@@ -317,3 +317,22 @@ float vector3_get_component(Vector3 vector, int index) {
 
   return 0;
 }
+
+Vector3 vector3_avg(Vector3* vectors, int64_t length) {
+  float avg_x = 0;
+  float avg_y = 0;
+  float avg_z = 0;
+
+  for (int64_t i = 0; i < length; i++) {
+    avg_x += vectors[i].x;
+    avg_y += vectors[i].y;
+    avg_z += vectors[i].z;
+  }
+
+
+  avg_x /= (float)length;
+  avg_y /= (float)length;
+  avg_z /= (float)length;
+
+  return VEC3(avg_x, avg_y, avg_z);
+}

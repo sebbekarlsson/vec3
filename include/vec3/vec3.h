@@ -103,6 +103,8 @@ Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length);
 
 Vector3 vector3_find_closest_to_point(Vector3* vectors, uint64_t length, Vector3 point, int64_t skip_index, uint64_t* out_index);
 
+Vector3 vector3_avg(Vector3* vectors, int64_t length);
+
 
 float vector3_get_component(Vector3 vector, int index);
 
