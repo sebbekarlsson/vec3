@@ -107,6 +107,7 @@ Vector3 vector3_avg(Vector3* vectors, int64_t length);
 
 
 float vector3_get_component(Vector3 vector, int index);
+Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c);
 
 
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})

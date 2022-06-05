@@ -336,3 +336,7 @@ Vector3 vector3_avg(Vector3* vectors, int64_t length) {
 
   return VEC3(avg_x, avg_y, avg_z);
 }
+
+Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c) {
+  return vector3_cross(a, vector3_cross(b, c));
+}
