@@ -6,9 +6,12 @@
 int main(int argc,  char* argv[]) {
 
 
-  int64_t max_v = int64_max_value((int64_t[]) { 5, 2, 0, 100, 40, 20 }, 6);
+  Vector3 a = VEC3(0, 0, 0);
+  Vector3 b = VEC3(0, 90, 90);
 
-  printf("%ld\n", max_v);
+  Vector3 angle_vec = vector3_angle_vector(a, b);
+
+  VEC3_PRINT(angle_vec);
 
   return 0;
 }

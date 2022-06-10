@@ -96,6 +96,7 @@ void vector2Double_copy(Vector2Double *dest, Vector2Double src);
 Vector2 vector2_add(Vector2 a, Vector2 b);
 
 Vector3 vector_downscale(Vector3 a, float scale);
+Vector3 vector3_angle_vector(Vector3 a, Vector3 b);
 
 
 Vector3 vector3_find_min_vec(Vector3* vectors, uint32_t length);
@@ -109,6 +110,8 @@ Vector3 vector3_avg(Vector3* vectors, int64_t length);
 float vector3_get_component(Vector3 vector, int index);
 Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c);
 
+Vector3 vector3_angle_vector(Vector3 a, Vector3 b);
+float vector3_mag_euclidean(Vector3 a);
 
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})
