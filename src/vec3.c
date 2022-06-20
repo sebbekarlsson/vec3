@@ -177,19 +177,27 @@ Vector3 vector3_project(Vector3 a, Vector3 b) {
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale) {
   Vector3 result = VEC3(from.x, from.y, from.z);
 
-  if (scale.x > 1) scale.x = 1;
+/*/  if (scale.x > 1) scale.x = 1;
   if (scale.y > 1) scale.y = 1;
   if (scale.z > 1) scale.z = 1;
 
   if (scale.x < -1) scale.x = -1;
   if (scale.y < -1) scale.y = -1;
-  if (scale.z < -1) scale.z = -1;
+  if (scale.z < -1) scale.z = -1;*/
 
   result.x += (to.x - result.x) * scale.x;
   result.y += (to.y - result.y) * scale.y;
   result.z += (to.z - result.z) * scale.z;
 
   return vector3_apply_extra(result, from);
+}
+
+Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor) {
+  vec3 result = GLM_VEC3_ZERO_INIT;
+
+  glm_vec3_lerp((vec3){from.x, from.y, from.z}, (vec3){ to.x, to.y, to.z }, factor, result);
+
+  return vector3_apply_extra(VEC3(result[0], result[1], result[2]), to);
 }
 
 Vector3 vector3_project_on_plane(Vector3 a, Vector3 normal) {
@@ -376,4 +384,55 @@ Vector3 vector3_avg(Vector3* vectors, int64_t length) {
 
 Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_cross(a, vector3_cross(b, c));
+}
+
+static inline unsigned int number_is_bad(float v) {
+  return (isinf(v) || isnan(v) || fabsf(v) >= FLT_MAX);
+}
+
+static float v_clamp(float v, float min, float max) {
+  return fmaxf(min, fminf(max, v));
+}
+
+static float v_smoothstep(float edge0, float edge1, float value) {
+  value = v_clamp((value - edge0) / (edge1 - edge0), 0.0f, 1.0f);
+  return value * value * (3 - 2 * value);
+}
+
+Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value) {
+  value.x = v_smoothstep(edge0.x, edge1.x, value.x);
+  value.y = v_smoothstep(edge0.y, edge1.y, value.y);
+  value.z = v_smoothstep(edge0.z, edge1.z, value.z);
+  return value;
+}
+
+unsigned int vector3_is_inf(Vector3 a) {
+  if (number_is_bad(a.x)) return 1;
+  if (number_is_bad(a.y)) return 1;
+  if (number_is_bad(a.z)) return 1;
+  return 0;
+}
+
+float vector3_diff_percentage(Vector3 a, Vector3 b) {
+  float max_x = fmaxf(a.x, b.x);
+  float max_y = fmaxf(a.y, b.y);
+  float max_z = fmaxf(a.z, b.z);
+
+  float min_x = fminf(a.x, b.x);
+  float min_y = fminf(a.y, b.y);
+  float min_z = fminf(a.z, b.z);
+
+
+  float dx = fabsf(max_x - min_x);
+  float dy = fabsf(max_y - min_y);
+  float dz = fabsf(max_z - min_z);
+
+
+  float px = (dx / max_x);
+  float py = (dy / max_y);
+  float pz = (dz / max_z);
+
+  float f = (px + py + pz) / 3.0f;
+
+  return f * 100.0f;
 }

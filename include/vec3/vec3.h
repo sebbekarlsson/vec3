@@ -60,6 +60,9 @@ float vector3_angle2d_to(Vector3 a, Vector3 b);
 Vector3 vector3_normal(Vector3 a);
 Vector3 vector3_normalize(Vector3 a);
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale);
+
+Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor);
+
 float vector3_radians(Vector3 a);
 Vector3 vector3_round(Vector3 a);
 float vector3_angle2d(Vector3 a);
@@ -112,6 +115,12 @@ Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c);
 
 Vector3 vector3_angle_vector(Vector3 a, Vector3 b);
 float vector3_mag_euclidean(Vector3 a);
+Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value);
+
+
+float vector3_diff_percentage(Vector3 a, Vector3 b);
+
+unsigned int vector3_is_inf(Vector3 a);
 
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})

@@ -6,12 +6,15 @@
 int main(int argc,  char* argv[]) {
 
 
-  Vector3 a = VEC3(0, 0, 0);
-  Vector3 b = VEC3(0, 90, 90);
+  Vector3 a = VEC3(1, 1000, 10);
 
-  Vector3 angle_vec = vector3_angle_vector(a, b);
+  Vector3 b = VEC3(100, 100, -100);
 
-  VEC3_PRINT(angle_vec);
+
+  float diff = vector3_diff_percentage(a, b);
+
+  printf("%12.6f\n", diff);
+
 
   return 0;
 }

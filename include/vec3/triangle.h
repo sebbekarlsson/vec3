@@ -1,5 +1,6 @@
 #ifndef VEC3_TRIANGLE_H
 #define VEC3_TRIANGLE_H
+#include <vec3/material.h>
 #include <vec3/vec3.h>
 #include <stdint.h>
 typedef struct {
@@ -16,6 +17,9 @@ typedef struct {
   Vector3 n1;
   Vector3 n2;
   Vector3 n3;
+
+  VEC3Material material;
+
 
 
   void* mesh;
