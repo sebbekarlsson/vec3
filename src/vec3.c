@@ -364,22 +364,16 @@ float vector3_get_component(Vector3 vector, int index) {
 }
 
 Vector3 vector3_avg(Vector3* vectors, int64_t length) {
-  float avg_x = 0;
-  float avg_y = 0;
-  float avg_z = 0;
+  Vector3 avg = VEC3(0, 0, 0);
+
+  if (vectors == 0 || length <= 0) return avg;
 
   for (int64_t i = 0; i < length; i++) {
-    avg_x += vectors[i].x;
-    avg_y += vectors[i].y;
-    avg_z += vectors[i].z;
+    avg = vector3_add(avg, vectors[i]);
   }
 
 
-  avg_x /= (float)length;
-  avg_y /= (float)length;
-  avg_z /= (float)length;
-
-  return VEC3(avg_x, avg_y, avg_z);
+  return vector3_scale(avg, 1.0f / (float)length);
 }
 
 Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c) {
