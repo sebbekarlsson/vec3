@@ -7,4 +7,15 @@
 #define MAYBE_STRDUP(v) (v == 0 ? 0 : strdup(v))
 #define IS_FALSE(v) (v <= 0)
 #define IS_TRUE(v) (v >= 1)
+
+
+
+#ifndef MIN
+#define MIN(a, b) (a < b ? a : b)
+#endif
+#ifndef MAX
+#define MAX(a, b) (a > b ? a : b)
+#endif
+
+
 #endif

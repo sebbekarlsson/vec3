@@ -47,6 +47,20 @@ typedef struct {
   uint64_t y;
 } Vector2ui64;
 
+typedef struct {
+  Vector3 furthest;
+  Vector3 closest;
+
+  int64_t furthest_index;
+  int64_t closest_index;
+} Vector3Support;
+
+typedef struct {
+  Vector3Support a;
+  Vector3Support b;
+  Vector3 point;
+} Vector3SupportPair;
+
 void vector3_copy(Vector3 *dest, Vector3 src);
 Vector3 vector3_add(Vector3 a, Vector3 b);
 Vector3 vector3_sub(Vector3 a, Vector3 b);

@@ -17,6 +17,13 @@ typedef enum {
   VEC3_ROTATION_ORDER_ZXY
 } VEC3RotationOrder;
 
+typedef struct {
+  Vector3 value;
+  Vector3 origin;
+  float angle;
+  VEC3RotationOrder order;
+} VEC3Rotation;
+
 void vec3_matrix_generate(float trans_x, float trans_y, float trans_z, float rot_x,
                      float rot_y, float rot_z, float offset_x, float offset_y,
                      float offset_z, unsigned int reverse, mat4 final,
