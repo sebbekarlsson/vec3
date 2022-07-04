@@ -16,6 +16,10 @@ int main(int argc,  char* argv[]) {
   vec3_buffer_push(&b1, VEC3(4, 4, 4));
   vec3_buffer_push(&b1, VEC3(1, 2, 1));
   vec3_buffer_push(&b1, VEC3(0, 0, 0));
+  vec3_buffer_push(&b1, VEC3(9, 0, 3));
+
+
+  vec3_buffer_push_at(&b1, VEC3(5, 5, 5), 1);
 
 
   vec3_buffer_push(&b2, VEC3(4, 4, 3));

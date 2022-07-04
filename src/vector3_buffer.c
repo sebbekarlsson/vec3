@@ -413,6 +413,29 @@ int vec3_buffer_shift_left(VEC3Buffer *array, int index) {
   return 1;
 }
 
+int vec3_buffer_shift_right(VEC3Buffer *array, int index) {
+  if (!array || array->length <= 0) return 0;
+  for (int i = array->length - 1; i >= index; i--) {
+    array->items[MIN(array->length - 1, i + 1)] = array->items[i];
+    array->items[i] = VEC3(0, 0, 0);
+  }
+
+  return 1;
+}
+
+int vec3_buffer_push_at(VEC3Buffer* a, Vector3 v, int64_t index) {
+  if (!a) return 0;
+  a->items =
+    (Vector3 *)realloc(a->items, (a->length + 1) * sizeof(Vector3));
+
+  a->length++;
+  vec3_buffer_shift_right(a, index);
+
+  a->items[index] = v;
+
+  return 1;
+}
+
 int vec3_buffer_remove_by_index(VEC3Buffer* src, int64_t index) {
   if (!src || src->length <= 0) return 0;
 
