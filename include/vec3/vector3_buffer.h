@@ -70,6 +70,11 @@ VEC3Buffer vec3_buffer_get_by_indices(VEC3Buffer buffer, Int64Buffer indices);
 int vec3_array_translate(Vector3* vectors, int64_t length, Vector3 pos, VEC3Rotation rotation);
 
 Vector3Support vec3_buffer_furthest_closest_point_along_axis(VEC3Buffer a, Vector3 axis);
+
+Vector3Support vec3_buffer_furthest_closest_point_along_axis_with_remains(VEC3Buffer a, Vector3 axis, VEC3Buffer* remain_left, VEC3Buffer* remain_right);
+
+
+
 Vector3SupportPair vec3_buffer_find_support(
   VEC3Buffer a,
   VEC3Buffer b,Vector3 axis);

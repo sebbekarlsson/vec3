@@ -308,6 +308,35 @@ Vector3Support vec3_buffer_furthest_closest_point_along_axis(VEC3Buffer a, Vecto
   return (Vector3Support){ .furthest = furthest, .closest = closest, .furthest_index = furthest_index, .closest_index = closest_index };
 }
 
+Vector3Support vec3_buffer_furthest_closest_point_along_axis_with_remains(VEC3Buffer a, Vector3 axis, VEC3Buffer* remain_left, VEC3Buffer* remain_right) {
+  if (!remain_left->initialized) {
+    vec3_buffer_init(remain_left);
+  }
+
+  if (!remain_right->initialized) {
+    vec3_buffer_init(remain_right);
+  }
+
+  Vector3Support support = vec3_buffer_furthest_closest_point_along_axis(a, axis);
+
+
+  for (int64_t i = 0; i < a.length; i++) {
+    Vector3 v = a.items[i];
+    if (vector3_compare(v, support.closest) || vector3_compare(v, support.furthest)) continue;
+    float dot = vector3_dot(v, axis);
+
+
+    if (dot > 0) {
+      vec3_buffer_push(remain_right, v);
+    } else {
+      vec3_buffer_push(remain_left, v);
+    }
+
+  }
+
+  return support;
+}
+
 Vector3SupportPair vec3_buffer_find_support(
   VEC3Buffer a,
   VEC3Buffer b,Vector3 axis) {
