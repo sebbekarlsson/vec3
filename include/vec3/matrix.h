@@ -11,10 +11,10 @@ typedef struct {
 
 
 typedef enum {
-  GLE_ROTATION_ORDER_XYZ,
-  GLE_ROTATION_ORDER_YXZ,
-  GLE_ROTATION_ORDER_ZYX,
-  GLE_ROTATION_ORDER_ZXY
+  VEC3_ROTATION_ORDER_XYZ,
+  VEC3_ROTATION_ORDER_YXZ,
+  VEC3_ROTATION_ORDER_ZYX,
+  VEC3_ROTATION_ORDER_ZXY
 } VEC3RotationOrder;
 
 void vec3_matrix_generate(float trans_x, float trans_y, float trans_z, float rot_x,
