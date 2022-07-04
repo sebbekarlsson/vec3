@@ -366,3 +366,41 @@ VEC3Buffer vec3_buffer_get_by_indices(VEC3Buffer buffer, Int64Buffer indices) {
 
   return buf;
 }
+
+VEC3Buffer vec3_buffer_find_points_along_axis(VEC3Buffer a, Vector3 axis) {
+  VEC3Buffer buff = {0};
+  vec3_buffer_init(&buff);
+  for (int64_t i = 0; i < a.length; i++) {
+    Vector3 v = a.items[i];
+    float dot = vector3_dot(v, axis);
+    if (dot > 0) {
+      vec3_buffer_push(&buff, v);
+    }
+  }
+
+  return buff;
+}
+
+int64_t vec3_buffer_find_index_between(VEC3Buffer a, Vector3 p1, Vector3 p2) {
+  if (a.length <= 0) return 0;
+
+  Vector3Pair pair = vector3_min_max(p1, p2);
+
+
+  int64_t count = 0;
+  int64_t start = 0;
+  unsigned int found_min = 0;
+  for (int64_t i = 0; i < a.length; i++) {
+    Vector3 v = a.items[i];
+
+    if (vector3_compare(v, pair.a) && !found_min) {
+      found_min = 1;
+      start = i;
+    } else if (found_min) {
+      count += 1;
+      if (vector3_compare(v, pair.b)) break;
+    }
+  }
+
+  return start + (count / 2);
+}

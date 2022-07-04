@@ -69,6 +69,9 @@ Vector3 vector3_downscale(Vector3 a, float scale);
 Vector3 vector3_min(Vector3 a, Vector3 b);
 Vector3 vector3_max(Vector3 a, Vector3 b);
 Vector3 vector3_mul(Vector3 a, Vector3 b);
+
+Vector3Pair vector3_min_max(Vector3 a, Vector3 b);
+
 float vector3_sum(Vector3 a);
 float vector3_angle2d_to(Vector3 a, Vector3 b);
 Vector3 vector3_normal(Vector3 a);

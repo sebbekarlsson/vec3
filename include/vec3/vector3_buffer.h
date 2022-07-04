@@ -73,6 +73,10 @@ Vector3Support vec3_buffer_furthest_closest_point_along_axis(VEC3Buffer a, Vecto
 
 Vector3Support vec3_buffer_furthest_closest_point_along_axis_with_remains(VEC3Buffer a, Vector3 axis, VEC3Buffer* remain_left, VEC3Buffer* remain_right);
 
+VEC3Buffer vec3_buffer_find_points_along_axis(VEC3Buffer a, Vector3 axis);
+
+
+int64_t vec3_buffer_find_index_between(VEC3Buffer a, Vector3 p1, Vector3 p2);
 
 
 Vector3SupportPair vec3_buffer_find_support(

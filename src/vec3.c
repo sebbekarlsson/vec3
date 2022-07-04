@@ -430,3 +430,28 @@ float vector3_diff_percentage(Vector3 a, Vector3 b) {
 
   return f * 100.0f;
 }
+
+Vector3Pair vector3_min_max(Vector3 a, Vector3 b) {
+
+  unsigned int min_score_a = 0;
+  unsigned int min_score_b = 0;
+
+  if (a.x < b.x) min_score_a += 1;
+  else min_score_b += 1;
+
+  if (a.y < b.y) min_score_a += 1;
+  else min_score_b += 1;
+
+  if (a.z < b.z) min_score_a += 1;
+  else min_score_b += 1;
+
+
+  int min = min_score_a > min_score_b ? 0 : 1;
+  int max = !min;
+
+
+  Vector3 _max = min == 0 ? a : b;
+  Vector3 _min = max == 0 ? a : b;
+
+  return (Vector3Pair){ .a = _min, .b = _max };
+}
