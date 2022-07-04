@@ -82,6 +82,7 @@ int vec3_buffer_remove_matching(VEC3Buffer* src, VEC3Buffer lookup);
 
 
 int vec3_buffer_push_at(VEC3Buffer* a, Vector3 v, int64_t index);
+int vec3_buffer_remove(VEC3Buffer* src, Vector3 v);
 
 
 Vector3SupportPair vec3_buffer_find_support(
