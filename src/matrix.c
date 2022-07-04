@@ -26,18 +26,18 @@ void vec3_matrix_generate(float trans_x, float trans_y, float trans_z, float rot
   mat4 rot = GLM_MAT4_IDENTITY_INIT;
 
   switch (order) {
-    case GLE_ROTATION_ORDER_YXZ:
+    case VEC3_ROTATION_ORDER_YXZ:
       glm_quat_rotate_at(rot, qy, (vec3){offset_x, offset_y, offset_z});
       glm_quat_rotate_at(rot, qx, (vec3){offset_x, offset_y, offset_z});
       glm_quat_rotate_at(rot, qz, (vec3){offset_x, offset_y, offset_z});
       break;
-    case GLE_ROTATION_ORDER_ZXY:
+    case VEC3_ROTATION_ORDER_ZXY:
       glm_quat_rotate_at(rot, qz, (vec3){offset_x, offset_y, offset_z});
       glm_quat_rotate_at(rot, qx, (vec3){offset_x, offset_y, offset_z});
       glm_quat_rotate_at(rot, qy, (vec3){offset_x, offset_y, offset_z});
       break;
-    case GLE_ROTATION_ORDER_XYZ:
-    case GLE_ROTATION_ORDER_ZYX:
+    case VEC3_ROTATION_ORDER_XYZ:
+    case VEC3_ROTATION_ORDER_ZYX:
     default:
       glm_quat_rotate_at(rot, qx, (vec3){offset_x, offset_y, offset_z});
       glm_quat_rotate_at(rot, qy, (vec3){offset_x, offset_y, offset_z});
