@@ -404,3 +404,79 @@ int64_t vec3_buffer_find_index_between(VEC3Buffer a, Vector3 p1, Vector3 p2) {
 
   return start + (count / 2);
 }
+
+int vec3_buffer_shift_left(VEC3Buffer *array, int index) {
+  if (!array || array->length <= 0) return 0;
+  for (int i = index; i < array->length - 1; i++)
+    array->items[i] = array->items[i + 1];
+
+  return 1;
+}
+
+int vec3_buffer_remove_by_index(VEC3Buffer* src, int64_t index) {
+  if (!src || src->length <= 0) return 0;
+
+  if (index < 0) return 0;
+
+  vec3_buffer_shift_left(src, index);
+
+  if (src->length-1 <= 0) {
+    vec3_buffer_clear(src);
+    return 1;
+  }
+
+  src->items = (Vector3*)realloc(src->items, (src->length-1) * sizeof(Vector3));
+  src->length -= 1;
+
+  return 1;
+}
+
+int vec3_buffer_remove(VEC3Buffer* src, Vector3 v) {
+  if (!src || src->length <= 0) return 0;
+
+  int64_t index = -1;
+  for (int64_t i = 0; i < src->length; i++) {
+    if (vector3_compare(src->items[i], v)) {
+      index = i;
+      break;
+    }
+  }
+
+  if (index < 0) return 0;
+
+  return vec3_buffer_remove_by_index(src, index);
+}
+
+int vec3_buffer_remove_matching(VEC3Buffer* src, VEC3Buffer lookup) {
+  if (!src || src->length <= 0) return 0;
+  if (vec3_buffer_is_empty(lookup)) return 0;
+
+
+
+  for (int64_t j = 0; j < lookup.length; j++) {
+    for (int64_t i = 0; i < src->length; i++) {
+      if (vector3_compare(src->items[i], lookup.items[j])) {
+        vec3_buffer_remove_by_index(src, i);
+      }
+    }
+  }
+
+  return 1;
+}
+
+
+int vec3_buffer_pop(VEC3Buffer* buffer) {
+  if (buffer->length <= 0 || buffer->items == 0) return 0;
+
+  if (buffer->length-1 <= 0) {
+    vec3_buffer_clear(buffer);
+    return 1;
+  }
+
+ // buffer->items[buffer->length-1] = 0;
+
+
+  buffer->items = (Vector3*)realloc(buffer->items, (buffer->length-1) * sizeof(Vector3));
+  buffer->length -= 1;
+  return 1;
+}
