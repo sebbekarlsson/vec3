@@ -18,7 +18,7 @@ typedef struct {
   int ref_count;
 } VEC3Buffer;
 
-#define AS_VECTOR_BUFFER(vecs, len) ((VEC3Buffer){ .initialized = 1, .items = vecs, .length = len, .normals = 0, .normals_length = 0 })
+#define AS_VEC3_BUFFER(vecs, len) ((VEC3Buffer){ .initialized = 1, .items = vecs, .length = len, .normals = 0, .normals_length = 0 })
 
 void vec3_buffer_init(VEC3Buffer* buffer);
 
