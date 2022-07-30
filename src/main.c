@@ -6,39 +6,19 @@
 
 int main(int argc,  char* argv[]) {
 
+  Vector3 a = VEC3(0, -1, 0);
 
-  VEC3Buffer b1 = {0};
-  VEC3Buffer b2 = {0};
-  vec3_buffer_init(&b1);
-  vec3_buffer_init(&b2);
+  Vector3 b = VEC3(0, 0, 0);
 
 
-  vec3_buffer_push(&b1, VEC3(4, 4, 4));
-  vec3_buffer_push(&b1, VEC3(1, 2, 1));
-  vec3_buffer_push(&b1, VEC3(0, 0, 0));
-  vec3_buffer_push(&b1, VEC3(9, 0, 3));
+  Vector3 max = vector3_max(a, b);
+  Vector3 min = vector3_min(a, b);
 
 
-  vec3_buffer_push_at(&b1, VEC3(5, 5, 5), 1);
-
-
-  vec3_buffer_push(&b2, VEC3(4, 4, 3));
-  vec3_buffer_push(&b2, VEC3(1, 2, 1));
-  vec3_buffer_push(&b2, VEC3(0, 1, 0));
-
-
-  printf("Before:\n");
-  for (int64_t i = 0; i < b1.length; i++) {
-    VEC3_PRINT(b1.items[i]);
-  }
-
-  vec3_buffer_remove_matching(&b1, b2);
-
-  printf("After:\n");
-  for (int64_t i = 0; i < b1.length; i++) {
-    VEC3_PRINT(b1.items[i]);
-  }
-
+  printf("max:\n");
+  VEC3_PRINT(max);
+  printf("min:\n");
+  VEC3_PRINT(min);
 
   return 0;
 }

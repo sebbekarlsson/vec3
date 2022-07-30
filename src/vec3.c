@@ -81,7 +81,8 @@ float vector3_mag(Vector3 a) {
 float vector3_mag_euclidean(Vector3 a) {
   float value = glm_vec3_norm((vec3){a.x, a.y, a.z});
 
-  if (isinf(value) || isnan(value) || value >= FLT_MAX) value = 0.000000001f;
+  if (isinf(value) || isnan(value) || value >= FLT_MAX)
+    value = 0.000000001f;
 
   return value;
 }
@@ -97,7 +98,9 @@ Vector3 *vector3_alloc(Vector3 a) {
   return vec;
 }
 
-Vector3 vector3_mul(Vector3 a, Vector3 b) { return vector3_apply_extra(VEC3_OP(a, *, b), a); }
+Vector3 vector3_mul(Vector3 a, Vector3 b) {
+  return vector3_apply_extra(VEC3_OP(a, *, b), a);
+}
 
 float vector3_distance2d(Vector3 a, Vector3 b) {
   return (hypotf(b.x - a.x, b.y - a.y));
@@ -115,7 +118,9 @@ float vector3_angle2d(Vector3 a) {
 }
 
 // TODO: check if a is still valid
-Vector3 vector3_normal(Vector3 a) { return vector3_apply_extra((Vector3){-a.y, a.x, a.z}, a); }
+Vector3 vector3_normal(Vector3 a) {
+  return vector3_apply_extra((Vector3){-a.y, a.x, a.z}, a);
+}
 
 Vector3 vector3_normalize(Vector3 a) {
   float mag = vector3_mag(a);
@@ -132,6 +137,16 @@ float vector3_sum(Vector3 a) { return a.x + a.y + a.z; }
 float vector3_radians(Vector3 a) { return atan2f(a.y, a.x); }
 
 Vector3 vector3_min(Vector3 a, Vector3 b) {
+
+  vec3 mm = GLM_VEC3_ZERO_INIT;
+  glm_vec3_minv((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z}, mm);
+
+  if (vector3_compare(a, VEC3(mm[0], mm[1], mm[2]))) {
+    return a;
+  } else if (vector3_compare(b, VEC3(mm[0], mm[1], mm[2]))) {
+    return b;
+  }
+
   float mag_a = vector3_mag(a);
   float mag_b = vector3_mag(b);
 
@@ -141,6 +156,15 @@ Vector3 vector3_min(Vector3 a, Vector3 b) {
 Vector3 vector3_max(Vector3 a, Vector3 b) {
   float mag_a = vector3_mag(a);
   float mag_b = vector3_mag(b);
+
+  vec3 mm = GLM_VEC3_ZERO_INIT;
+  glm_vec3_maxv((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z}, mm);
+
+  if (vector3_compare(a, VEC3(mm[0], mm[1], mm[2]))) {
+    return a;
+  } else if (vector3_compare(b, VEC3(mm[0], mm[1], mm[2]))) {
+    return b;
+  }
 
   return mag_a > mag_b ? a : b;
 }
@@ -177,13 +201,13 @@ Vector3 vector3_project(Vector3 a, Vector3 b) {
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale) {
   Vector3 result = VEC3(from.x, from.y, from.z);
 
-/*/  if (scale.x > 1) scale.x = 1;
-  if (scale.y > 1) scale.y = 1;
-  if (scale.z > 1) scale.z = 1;
+  /*/  if (scale.x > 1) scale.x = 1;
+    if (scale.y > 1) scale.y = 1;
+    if (scale.z > 1) scale.z = 1;
 
-  if (scale.x < -1) scale.x = -1;
-  if (scale.y < -1) scale.y = -1;
-  if (scale.z < -1) scale.z = -1;*/
+    if (scale.x < -1) scale.x = -1;
+    if (scale.y < -1) scale.y = -1;
+    if (scale.z < -1) scale.z = -1;*/
 
   result.x += (to.x - result.x) * scale.x;
   result.y += (to.y - result.y) * scale.y;
@@ -195,7 +219,8 @@ Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale) {
 Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor) {
   vec3 result = GLM_VEC3_ZERO_INIT;
 
-  glm_vec3_lerp((vec3){from.x, from.y, from.z}, (vec3){ to.x, to.y, to.z }, factor, result);
+  glm_vec3_lerp((vec3){from.x, from.y, from.z}, (vec3){to.x, to.y, to.z},
+                factor, result);
 
   return vector3_apply_extra(VEC3(result[0], result[1], result[2]), to);
 }
@@ -240,7 +265,8 @@ void vector3_to_glm(Vector3 a, vec3 dest) {
 Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b) {
   vec4 dest;
   glm_mat4_mulv(b, (vec4){a.x, a.y, a.z, OR(a.u, a.w)}, dest);
-  return vector3_apply_extra((Vector3){.x = dest[0], .y = dest[1], .z = dest[2], .u = dest[3]}, a);
+  return vector3_apply_extra(
+      (Vector3){.x = dest[0], .y = dest[1], .z = dest[2], .u = dest[3]}, a);
 }
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N) {
@@ -250,10 +276,10 @@ Vector3 vector3_reflect(Vector3 I, Vector3 N) {
 Vector3 vector3_angle_vector(Vector3 a, Vector3 b) {
   a = vector3_unit(a);
   b = vector3_unit(b);
-  float mag = (vector3_mag_euclidean(a)*vector3_mag_euclidean(b));
+  float mag = (vector3_mag_euclidean(a) * vector3_mag_euclidean(b));
   if (isinf(mag) || isnan(mag) || mag >= FLT_MAX)
     mag = 0.00000000001f;
-  float angle = glm_vec3_angle((vec3){a.x, a.y, a.z}, (vec3){ b.x, b.y, b.z });
+  float angle = glm_vec3_angle((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z});
   if (isinf(angle) || isnan(angle) || angle >= FLT_MAX)
     angle = 0.0f;
   return vector3_apply_extra(VEC3(cosf(angle), tanf(angle), sinf(angle)), a);
@@ -265,18 +291,17 @@ float vector3_angle3d(Vector3 a) {
 }
 float vector3_angle3d_to(Vector3 a, Vector3 b) {
   return glm_vec3_angle((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z});
-/*  float dot = vector3_dot(a, b);
-  float mag_a = vector3_mag(a);
-  float mag_b = vector3_mag(b);
-  float frac = dot / (mag_a * mag_b);
-  return roundf((acosf(frac) * 180) / M_PI);*/
+  /*  float dot = vector3_dot(a, b);
+    float mag_a = vector3_mag(a);
+    float mag_b = vector3_mag(b);
+    float frac = dot / (mag_a * mag_b);
+    return roundf((acosf(frac) * 180) / M_PI);*/
 }
 Vector3 vector3_angle3d_to_radians_vector(Vector3 a, Vector3 b) {
 
   Vector3 n1 = vector3_unit(a);
   Vector3 n2 = vector3_unit(a);
   Vector3 r = vector3_sub(n1, n2);
-
 
   return vector3_apply_extra(VEC3(glm_rad(r.x), glm_rad(r.y), glm_rad(r.z)), a);
 }
@@ -287,17 +312,19 @@ Vector3 vector3_angle3d_to_deg_vector(Vector3 a, Vector3 b) {
   Vector3 n2 = vector3_unit(a);
   Vector3 r = vector3_sub(n1, n2);
 
-  return vector3_apply_extra(VEC3(glm_deg(glm_rad(r.x)), glm_deg(glm_rad(r.y)), glm_deg(glm_rad(r.z))), a);
+  return vector3_apply_extra(
+      VEC3(glm_deg(glm_rad(r.x)), glm_deg(glm_rad(r.y)), glm_deg(glm_rad(r.z))),
+      a);
 }
 
 Vector3 vector3_xz(Vector3 v) {
   return vector3_apply_extra(VEC3(v.x, 0, v.z), v);
 }
-Vector3 vector3_find_min_vec(Vector3* vectors, uint32_t length) {
+Vector3 vector3_find_min_vec(Vector3 *vectors, uint32_t length) {
   Vector3 min = vectors[0];
   float min_mag = INFINITY;
 
-  for (uint32_t i = 0; i  < length; i++) {
+  for (uint32_t i = 0; i < length; i++) {
     Vector3 v = vectors[i];
     float mag = vector3_sum(v);
 
@@ -309,11 +336,11 @@ Vector3 vector3_find_min_vec(Vector3* vectors, uint32_t length) {
 
   return min;
 }
-Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length) {
+Vector3 vector3_find_max_vec(Vector3 *vectors, uint32_t length) {
   Vector3 max = vectors[0];
   float max_mag = -INFINITY;
 
-  for (uint32_t i = 0; i  < length; i++) {
+  for (uint32_t i = 0; i < length; i++) {
     Vector3 v = vectors[i];
     float mag = vector3_sum(v);
 
@@ -326,15 +353,17 @@ Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length) {
   return max;
 }
 
-Vector3 vector3_find_closest_to_point(Vector3* vectors, uint64_t length, Vector3 point, int64_t skip_index, uint64_t* out_index) {
-  if (!vectors || !length) return point;
+Vector3 vector3_find_closest_to_point(Vector3 *vectors, uint64_t length,
+                                      Vector3 point, int64_t skip_index,
+                                      uint64_t *out_index) {
+  if (!vectors || !length)
+    return point;
   Vector3 closest = point;
   float min_dist = INFINITY;
 
-
   for (uint64_t i = 0; i < length; i++) {
-    if (skip_index >= 0 && i == skip_index) continue;
-
+    if (skip_index >= 0 && i == skip_index)
+      continue;
 
     Vector3 v = vectors[i];
     float dist = fabsf(vector3_distance3d(v, point));
@@ -351,27 +380,33 @@ Vector3 vector3_find_closest_to_point(Vector3* vectors, uint64_t length, Vector3
 
 float vector3_get_component(Vector3 vector, int index) {
   switch (index) {
-    case 0: return vector.x; break;
-    case 1: return vector.y; break;
-    case 2: return vector.z; break;
-    default: {
-      fprintf(stderr, "(vec3): Warning index > 3.\n");
-      return 0;
-    }; break;
+  case 0:
+    return vector.x;
+    break;
+  case 1:
+    return vector.y;
+    break;
+  case 2:
+    return vector.z;
+    break;
+  default: {
+    fprintf(stderr, "(vec3): Warning index > 3.\n");
+    return 0;
+  }; break;
   }
 
   return 0;
 }
 
-Vector3 vector3_avg(Vector3* vectors, int64_t length) {
+Vector3 vector3_avg(Vector3 *vectors, int64_t length) {
   Vector3 avg = VEC3(0, 0, 0);
 
-  if (vectors == 0 || length <= 0) return avg;
+  if (vectors == 0 || length <= 0)
+    return avg;
 
   for (int64_t i = 0; i < length; i++) {
     avg = vector3_add(avg, vectors[i]);
   }
-
 
   return vector3_scale(avg, 1.0f / (float)length);
 }
@@ -401,9 +436,12 @@ Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value) {
 }
 
 unsigned int vector3_is_inf(Vector3 a) {
-  if (number_is_bad(a.x)) return 1;
-  if (number_is_bad(a.y)) return 1;
-  if (number_is_bad(a.z)) return 1;
+  if (number_is_bad(a.x))
+    return 1;
+  if (number_is_bad(a.y))
+    return 1;
+  if (number_is_bad(a.z))
+    return 1;
   return 0;
 }
 
@@ -416,11 +454,9 @@ float vector3_diff_percentage(Vector3 a, Vector3 b) {
   float min_y = fminf(a.y, b.y);
   float min_z = fminf(a.z, b.z);
 
-
   float dx = fabsf(max_x - min_x);
   float dy = fabsf(max_y - min_y);
   float dz = fabsf(max_z - min_z);
-
 
   float px = (dx / max_x);
   float py = (dy / max_y);
@@ -436,22 +472,26 @@ Vector3Pair vector3_min_max(Vector3 a, Vector3 b) {
   unsigned int min_score_a = 0;
   unsigned int min_score_b = 0;
 
-  if (a.x < b.x) min_score_a += 1;
-  else min_score_b += 1;
+  if (a.x < b.x)
+    min_score_a += 1;
+  else
+    min_score_b += 1;
 
-  if (a.y < b.y) min_score_a += 1;
-  else min_score_b += 1;
+  if (a.y < b.y)
+    min_score_a += 1;
+  else
+    min_score_b += 1;
 
-  if (a.z < b.z) min_score_a += 1;
-  else min_score_b += 1;
-
+  if (a.z < b.z)
+    min_score_a += 1;
+  else
+    min_score_b += 1;
 
   int min = min_score_a > min_score_b ? 0 : 1;
   int max = !min;
 
-
   Vector3 _max = min == 0 ? a : b;
   Vector3 _min = max == 0 ? a : b;
 
-  return (Vector3Pair){ .a = _min, .b = _max };
+  return (Vector3Pair){.a = _min, .b = _max};
 }
