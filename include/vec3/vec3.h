@@ -61,6 +61,19 @@ typedef struct {
   Vector3 point;
 } Vector3SupportPair;
 
+typedef struct {
+  int64_t index;
+  Vector3 v;
+} Vector3Indexed;
+
+typedef struct {
+  int64_t index_a;
+  int64_t index_b;
+
+  Vector3 a;
+  Vector3 b;
+} Vector3PairIndexed;
+
 void vector3_copy(Vector3 *dest, Vector3 src);
 Vector3 vector3_add(Vector3 a, Vector3 b);
 Vector3 vector3_sub(Vector3 a, Vector3 b);
