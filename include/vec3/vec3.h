@@ -129,7 +129,6 @@ void vector2Double_copy(Vector2Double *dest, Vector2Double src);
 Vector2 vector2_add(Vector2 a, Vector2 b);
 
 Vector3 vector_downscale(Vector3 a, float scale);
-Vector3 vector3_angle_vector(Vector3 a, Vector3 b);
 
 
 Vector3 vector3_find_min_vec(Vector3* vectors, uint32_t length);
@@ -143,7 +142,7 @@ Vector3 vector3_avg(Vector3* vectors, int64_t length);
 float vector3_get_component(Vector3 vector, int index);
 Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c);
 
-Vector3 vector3_angle_vector(Vector3 a, Vector3 b);
+Vector3 vector3_angle_vector(Vector3 dir, Vector3 up);
 float vector3_mag_euclidean(Vector3 a);
 Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value);
 

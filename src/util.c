@@ -29,3 +29,7 @@ int64_t int64_max_value(int64_t* ints, uint64_t length) {
 
   return max_v;
 }
+
+float vec3_sign(float v) {
+  return v < 0 ? -1 : 1;
+}

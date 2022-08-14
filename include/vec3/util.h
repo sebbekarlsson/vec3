@@ -4,4 +4,7 @@
 uint64_t floats_min_index(float* floats, uint64_t length);
 
 int64_t int64_max_value(int64_t* ints, uint64_t length);
+
+
+float vec3_sign(float v);
 #endif

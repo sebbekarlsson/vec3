@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <vec3/macros.h>
 #include <vec3/vec3.h>
+#include <vec3/util.h>
 
 void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->x = src.x;
@@ -273,18 +274,6 @@ Vector3 vector3_reflect(Vector3 I, Vector3 N) {
   return vector3_sub(I, vector3_mul(vector3_scale(N, 2.0f), vector3_mul(I, N)));
 }
 
-Vector3 vector3_angle_vector(Vector3 a, Vector3 b) {
-  a = vector3_unit(a);
-  b = vector3_unit(b);
-  float mag = (vector3_mag_euclidean(a) * vector3_mag_euclidean(b));
-  if (isinf(mag) || isnan(mag) || mag >= FLT_MAX)
-    mag = 0.00000000001f;
-  float angle = glm_vec3_angle((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z});
-  if (isinf(angle) || isnan(angle) || angle >= FLT_MAX)
-    angle = 0.0f;
-  return vector3_apply_extra(VEC3(cosf(angle), tanf(angle), sinf(angle)), a);
-}
-
 float vector3_angle3d(Vector3 a) {
   Vector3 n = vector3_unit(a);
   return vector3_angle3d_to(VEC3(0, 0, 0), n);
@@ -494,4 +483,28 @@ Vector3Pair vector3_min_max(Vector3 a, Vector3 b) {
   Vector3 _min = max == 0 ? a : b;
 
   return (Vector3Pair){.a = _min, .b = _max};
+}
+
+Vector3 vector3_angle_vector(Vector3 dir, Vector3 up) {
+  float yaw = atan2(dir.x, dir.z);
+  float pitch = -asinf(dir.y);
+  float planeRightX = sinf(yaw);
+  float planeRightZ = -cosf(yaw);
+
+  float roll = asinf(up.x * planeRightX + up.z * planeRightZ);
+
+  // If we're twisted upside-down, return a roll in the range +-(pi/2, pi)
+  if (up.y < 0) roll = vec3_sign(roll) * M_PI - roll;
+
+  Vector3 v = VEC3(0, 0, 0);
+
+  // Convert radians to degrees.
+  v.y = yaw * 180 / M_PI;
+  v.x = pitch * 180 / M_PI;
+  v.z = roll * 180 / M_PI;
+
+  v.x -= 90.0f;
+  v.z -= 90.0f;
+
+  return v;
 }
