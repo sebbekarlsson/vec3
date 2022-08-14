@@ -6,19 +6,10 @@
 
 int main(int argc,  char* argv[]) {
 
-  Vector3 a = VEC3(0, -1, 0);
+  Vector3 v = VEC3(180, 360, 270);
+  Vector3 v2 = vector3_call(v, glm_rad);
 
-  Vector3 b = VEC3(0, 0, 0);
-
-
-  Vector3 max = vector3_max(a, b);
-  Vector3 min = vector3_min(a, b);
-
-
-  printf("max:\n");
-  VEC3_PRINT(max);
-  printf("min:\n");
-  VEC3_PRINT(min);
+  VEC3_PRINT(v2);
 
   return 0;
 }

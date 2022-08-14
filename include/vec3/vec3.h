@@ -151,6 +151,10 @@ float vector3_diff_percentage(Vector3 a, Vector3 b);
 
 unsigned int vector3_is_inf(Vector3 a);
 
+typedef float (*Vector3CallFunction)(float v);
+Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
+
+
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})
 

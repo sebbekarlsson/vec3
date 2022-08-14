@@ -508,3 +508,7 @@ Vector3 vector3_angle_vector(Vector3 dir, Vector3 up) {
 
   return v;
 }
+
+Vector3 vector3_call(Vector3 a, Vector3CallFunction func) {
+  return VEC3(func(a.x), func(a.y), func(a.z));
+}
