@@ -165,6 +165,7 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 #define VEC3_EMPTY ((Vector3){0, 0, 0})
 
 #define VEC3(x, y, z) ((Vector3){x, y, z})
+#define VEC31(V)(VEC3(V, V, V))
 #define VEC2(x, y) ((Vector2){x, y})
 
 #endif
