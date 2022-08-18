@@ -512,3 +512,17 @@ Vector3 vector3_angle_vector(Vector3 dir, Vector3 up) {
 Vector3 vector3_call(Vector3 a, Vector3CallFunction func) {
   return VEC3(func(a.x), func(a.y), func(a.z));
 }
+
+Vector3 vector3_mul_mat4(Vector3 a, mat4 m) {
+  mat3 m3 = GLM_MAT3_ZERO_INIT;
+  glm_mat4_pick3(m, m3);
+
+
+  vec3 result = GLM_VEC3_ZERO_INIT;
+
+  glm_mat3_mulv(m3, VEC3_GLM(a), result);
+
+
+
+  return VEC3(result[0], result[1], result[2]);
+}
