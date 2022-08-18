@@ -6,10 +6,19 @@
 
 int main(int argc,  char* argv[]) {
 
-  Vector3 v = VEC3(180, 360, 270);
-  Vector3 v2 = vector3_call(v, glm_rad);
+  Int64Buffer buffer = {0};
+  int64_buffer_init(&buffer);
 
-  VEC3_PRINT(v2);
+
+  int64_buffer_push_unique(&buffer, 1337);
+  int64_buffer_push_unique(&buffer, 1337);
+  int64_buffer_push_unique(&buffer, 3431);
+  int64_buffer_push_unique(&buffer, 1);
+  int64_buffer_push_unique(&buffer, 2);
+  int64_buffer_push_unique(&buffer, 3);
+  int64_buffer_push_unique(&buffer, 2);
+
+  int64_buffer_print(buffer);
 
   return 0;
 }

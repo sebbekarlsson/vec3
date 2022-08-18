@@ -168,4 +168,6 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 #define VEC31(V)(VEC3(V, V, V))
 #define VEC2(x, y) ((Vector2){x, y})
 
+#define VEC3_GLM(v)((vec3){ v.x, v.y, v.z })
+
 #endif
