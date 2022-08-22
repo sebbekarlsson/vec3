@@ -165,6 +165,10 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 #define VEC3_PRINT(a)                                                          \
   { printf("(%2.2f, %2.2f, %2.2f)\n", a.x, a.y, a.z); }
 
+
+#define VEC3_PRINT_PRECISE(a)                                                          \
+  { printf("(%12.6f, %12.6f, %12.6f)\n", a.x, a.y, a.z); }
+
 #define VEC3_EMPTY ((Vector3){0, 0, 0})
 
 #define VEC3(x, y, z) ((Vector3){x, y, z})
