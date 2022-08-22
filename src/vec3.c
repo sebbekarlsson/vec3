@@ -529,5 +529,5 @@ Vector3 vector3_mul_mat4(Vector3 a, mat4 m) {
 
 
 float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c) {
-  return vector3_dot(a, vector3_cross(a, c));
+  return vector3_dot(a, vector3_cross(b, c));
 }
