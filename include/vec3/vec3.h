@@ -177,4 +177,18 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 
 #define VEC3_GLM(v)((vec3){ v.x, v.y, v.z })
 
+
+
+#define VEC4(x, y, z, w) ((Vector4){ x, y, z, w })
+
+#define VEC41(V) ((Vector4){ V, V, V, V });
+
+
+#define VEC4_PRINT(a)                                                          \
+  { printf("(%2.2f, %2.2f, %2.2f, %2.2f)\n", a.x, a.y, a.z, a.w); }
+
+
+#define VEC4_PRINT_PRECISE(a)                                                          \
+  { printf("(%12.6f, %12.6f, %12.6f, %12.6f)\n", a.x, a.y, a.z, a.w); }
+
 #endif

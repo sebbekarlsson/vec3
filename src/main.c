@@ -6,19 +6,9 @@
 
 int main(int argc,  char* argv[]) {
 
-  Int64Buffer buffer = {0};
-  int64_buffer_init(&buffer);
+  Vector4 v = VEC4(2, 5, 6, 3);
 
-
-  int64_buffer_push_unique(&buffer, 1337);
-  int64_buffer_push_unique(&buffer, 1337);
-  int64_buffer_push_unique(&buffer, 3431);
-  int64_buffer_push_unique(&buffer, 1);
-  int64_buffer_push_unique(&buffer, 2);
-  int64_buffer_push_unique(&buffer, 3);
-  int64_buffer_push_unique(&buffer, 2);
-
-  int64_buffer_print(buffer);
+  VEC4_PRINT_PRECISE(v);
 
   return 0;
 }
