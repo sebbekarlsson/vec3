@@ -3,10 +3,7 @@
 #include <vec3/vec3.h>
 
 typedef struct {
-  Vector4 r1;
-  Vector4 r2;
-  Vector4 r3;
-  Vector4 r4;
+  mat4 value;
 } VEC3Mat4;
 
 
