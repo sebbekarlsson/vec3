@@ -177,6 +177,8 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 
 #define VEC3_GLM(v)((vec3){ v.x, v.y, v.z })
 
+#define VEC3_OR(a, b) (vector3_is_zero(a) ? b : a)
+
 
 
 #define VEC4(x, y, z, w) ((Vector4){ x, y, z, w })

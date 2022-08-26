@@ -6,9 +6,8 @@
 
 int main(int argc,  char* argv[]) {
 
-  Vector4 v = VEC4(2, 5, 6, 3);
 
-  VEC4_PRINT_PRECISE(v);
+  VEC3_PRINT_PRECISE(VEC3_OR(VEC3(0, 0, 0.00f), VEC3(4, 4, 4)));
 
   return 0;
 }
