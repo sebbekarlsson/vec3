@@ -85,3 +85,21 @@ void vec3_mat4_print(mat4 v) {
   }
   printf("\n]\n");
 }
+
+void vec3_mat3_print(mat3 v) {
+    printf("[\n");
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      printf("%12.6f", v[i][j]);
+
+      if (j < 3-1) {
+        printf(", ");
+      }
+    }
+
+    if (i < 3-1) {
+      printf("\n");
+    }
+  }
+  printf("\n]\n");
+}
