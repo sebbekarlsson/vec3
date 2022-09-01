@@ -67,3 +67,21 @@ void vec3_matrix_generate(float trans_x, float trans_y, float trans_z, float rot
 
   glm_mat4_mulN((mat4 *[]){&trans, &rot, &trans_two, &trans_pos}, 4, final);
 }
+
+void vec3_mat4_print(mat4 v) {
+  printf("[\n");
+  for (int i = 0; i < 4; i++) {
+    for (int j = 0; j < 4; j++) {
+      printf("%12.6f", v[i][j]);
+
+      if (j < 4-1) {
+        printf(", ");
+      }
+    }
+
+    if (i < 4-1) {
+      printf("\n");
+    }
+  }
+  printf("\n]\n");
+}
