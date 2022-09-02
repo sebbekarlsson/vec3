@@ -28,6 +28,13 @@ typedef struct {
 } Vector4;
 
 typedef struct {
+  int64_t x;
+  int64_t y;
+  int64_t z;
+  int64_t w;
+} Vector4i64;
+
+typedef struct {
   float x;
   float y;
 } Vector2;
