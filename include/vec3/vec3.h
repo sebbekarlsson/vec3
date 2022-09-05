@@ -166,6 +166,9 @@ Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value);
 
 float vector3_diff_percentage(Vector3 a, Vector3 b);
 
+
+Vector4 vector3_quat(Vector3 dir, Vector3 up);
+
 unsigned int vector3_is_inf(Vector3 a);
 
 typedef float (*Vector3CallFunction)(float v);

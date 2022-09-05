@@ -531,3 +531,9 @@ Vector3 vector3_mul_mat4(Vector3 a, mat4 m) {
 float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_dot(a, vector3_cross(b, c));
 }
+
+Vector4 vector3_quat(Vector3 dir, Vector3 up) {
+  vec4 q = GLM_VEC4_ZERO_INIT;
+  glm_quat_for(VEC3_GLM(dir), VEC3_GLM(up), q);
+  return VEC4(q[0], q[1], q[2], q[3]);
+}
