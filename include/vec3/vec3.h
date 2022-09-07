@@ -10,8 +10,6 @@ typedef struct {
   float x;
   float y;
   float z;
-  float u;
-  float v;
   float w;
 } Vector3;
 

@@ -239,7 +239,6 @@ int vec3_array_translate(Vector3 *vectors, int64_t length, Vector3 pos,
 
     if (rotation.angle > 0 || fabsf(vector3_mag(rotation.value)) > 0) {
 
-      v.u = 1;
       v.w = 1;
       v = vector3_project_onto_mat4(v, rot);
 

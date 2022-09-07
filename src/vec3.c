@@ -8,14 +8,10 @@ void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->x = src.x;
   dest->y = src.y;
   dest->z = src.z;
-  dest->u = src.u;
-  dest->v = src.v;
   dest->w = src.w;
 }
 
 Vector3 vector3_apply_extra(Vector3 out, Vector3 src) {
-  out.u = src.u;
-  out.v = src.v;
   out.w = src.w;
   return out;
 }
@@ -93,8 +89,6 @@ Vector3 *vector3_alloc(Vector3 a) {
   vec->x = a.x;
   vec->y = a.y;
   vec->z = a.z;
-  vec->u = a.u;
-  vec->v = a.v;
   vec->w = a.w;
   return vec;
 }
@@ -265,9 +259,9 @@ void vector3_to_glm(Vector3 a, vec3 dest) {
 
 Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b) {
   vec4 dest;
-  glm_mat4_mulv(b, (vec4){a.x, a.y, a.z, OR(a.u, a.w)}, dest);
+  glm_mat4_mulv(b, (vec4){a.x, a.y, a.z, a.w}, dest);
   return vector3_apply_extra(
-      (Vector3){.x = dest[0], .y = dest[1], .z = dest[2], .u = dest[3]}, a);
+      (Vector3){.x = dest[0], .y = dest[1], .z = dest[2]}, a);
 }
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N) {
