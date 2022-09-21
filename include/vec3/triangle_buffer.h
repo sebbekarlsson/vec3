@@ -40,5 +40,8 @@ int vec3_triangle_buffer_set(VEC3TriangleBuffer* buffer, int64_t index, VEC3Tria
 int vec3_triangle_buffer_push_at(VEC3TriangleBuffer* a, VEC3Triangle v, int64_t index);
 int vec3_triangle_buffer_remove(VEC3TriangleBuffer* src, VEC3Triangle v);
 
+int vec3_triangle_buffer_remove_by_index(VEC3TriangleBuffer* src, int64_t index);
+
+
 
 #endif
