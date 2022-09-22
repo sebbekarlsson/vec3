@@ -404,17 +404,17 @@ int64_t vec3_buffer_find_index_between(VEC3Buffer a, Vector3 p1, Vector3 p2) {
   return start + (count / 2);
 }
 
-int vec3_buffer_shift_left(VEC3Buffer *array, int index) {
+int vec3_buffer_shift_left(VEC3Buffer *array, int64_t index) {
   if (!array || array->length <= 0) return 0;
-  for (int i = index; i < array->length - 1; i++)
+  for (int64_t i = index; i < array->length - 1; i++)
     array->items[i] = array->items[i + 1];
 
   return 1;
 }
 
-int vec3_buffer_shift_right(VEC3Buffer *array, int index) {
+int vec3_buffer_shift_right(VEC3Buffer *array, int64_t index) {
   if (!array || array->length <= 0) return 0;
-  for (int i = array->length - 1; i >= index; i--) {
+  for (int64_t i = array->length - 1; i >= index; i--) {
     array->items[MIN(array->length - 1, i + 1)] = array->items[i];
     array->items[i] = VEC3(0, 0, 0);
   }

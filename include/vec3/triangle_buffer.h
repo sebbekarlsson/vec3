@@ -23,8 +23,6 @@ int vec3_triangle_buffer_push(VEC3TriangleBuffer* buffer, VEC3Triangle v);
 unsigned int vec3_triangle_buffer_is_empty(VEC3TriangleBuffer buffer);
 int vec3_triangle_buffer_clear(VEC3TriangleBuffer* buffer);
 
-int vec3_triangle_buffer_allocate(VEC3TriangleBuffer* buffer, int64_t n);
-
 int vec3_triangle_buffer_translate(VEC3TriangleBuffer* buffer, VEC3Triangle pos, VEC3Rotation rotation);
 int vec3_triangle_buffer_translate_copy(VEC3TriangleBuffer* dest, VEC3TriangleBuffer src, VEC3Triangle pos, VEC3Rotation rotation);
 
