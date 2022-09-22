@@ -118,3 +118,26 @@ int vec3_triangle_buffer_pop(VEC3TriangleBuffer* buffer) {
   buffer->length -= 1;
   return 1;
 }
+
+
+int vec3_triangle_buffer_pop_out(VEC3TriangleBuffer* buffer, VEC3Triangle* out) {
+    if (buffer->length <= 0 || buffer->items == 0 || !out) return 0;
+
+    if (buffer->length-1 <= 0) {
+    VEC3Triangle tri = buffer->items[0];
+    vec3_triangle_buffer_clear(buffer);
+    *out = tri;
+    return 1;
+  }
+
+ // buffer->items[buffer->length-1] = 0;
+
+    VEC3Triangle tri = buffer->items[MAX(0, buffer->length-1)];
+
+  buffer->items = (VEC3Triangle*)realloc(buffer->items, (buffer->length-1) * sizeof(VEC3Triangle));
+  buffer->length -= 1;
+
+  *out = tri;
+
+  return 1;
+}

@@ -30,6 +30,7 @@ int vec3_triangle_buffer_translate_copy(VEC3TriangleBuffer* dest, VEC3TriangleBu
 
 
 int vec3_triangle_buffer_pop(VEC3TriangleBuffer* buffer);
+int vec3_triangle_buffer_pop_out(VEC3TriangleBuffer* buffer, VEC3Triangle* out);
 
 VEC3Triangle vec3_triangle_buffer_back(VEC3TriangleBuffer buffer);
 
