@@ -22,7 +22,7 @@ typedef struct {
 
 
 
-  void* mesh;
+  int64_t mesh_index;
 } VEC3Triangle;
 
 typedef struct {
