@@ -19,3 +19,10 @@ void vec3_quat_for_angular_velocity(Vector3 velocity, double dt, vec4 out) {
     c
   );
 }
+
+
+void vec3_quat_forward_to_up(vec4 q) {
+  vec4 fwd2up;
+  glm_quat(fwd2up, glm_rad(90.0f), -1, 0, 0);
+  glm_quat_mul(q, fwd2up, q);
+}
