@@ -192,6 +192,8 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 
 #define VEC3_GLM(v)((vec3){ v.x, v.y, v.z })
 
+#define VEC3_FROM_GLM(g) VEC3(g[0], g[1], g[2])
+
 #define VEC3_OR(a, b) (vector3_is_zero(a) ? b : a)
 
 
