@@ -9,6 +9,12 @@
 
 int main(int argc,  char* argv[]) {
 
+  Vector3 v = VEC3(0.0, -1.0f, 0.0f);
+
+
+  VEC3_PRINT(vector3_rotate(v, 90.0f, VEC3(1, 0, 0)));
+
+  return 0;
 
   VEC3TriangleBuffer buffer = {0};
   vec3_triangle_buffer_init(&buffer);

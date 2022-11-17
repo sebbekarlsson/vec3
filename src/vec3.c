@@ -531,3 +531,22 @@ Vector4 vector3_quat(Vector3 dir, Vector3 up) {
   glm_quat_for(VEC3_GLM(dir), VEC3_GLM(up), q);
   return VEC4(q[0], q[1], q[2], q[3]);
 }
+
+
+Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis) {
+
+  float c = cosf(angle);
+  float s = sinf(angle);
+
+  Vector3 k = vector3_unit(axis);
+  Vector3 v1 = vector3_scale(v, c);
+  Vector3 v2 = vector3_cross(k, v);
+
+  v2 = vector3_scale(v2, s);
+  v1 = vector3_add(v1, v2);
+  v2 = vector3_scale(k, vector3_dot(k, v) * (1.0f - c));
+
+  return vector3_add(v1, v2);
+
+
+}
