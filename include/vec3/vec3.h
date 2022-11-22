@@ -141,6 +141,9 @@ void vector2_copy(Vector2 *dest, Vector2 src);
 void vector2Double_copy(Vector2Double *dest, Vector2Double src);
 Vector2 vector2_add(Vector2 a, Vector2 b);
 
+float vector2_dot(Vector2 a, Vector2 b);
+
+
 Vector3 vector_downscale(Vector3 a, float scale);
 
 

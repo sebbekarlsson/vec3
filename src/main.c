@@ -9,10 +9,11 @@
 
 int main(int argc,  char* argv[]) {
 
-  Vector3 v = VEC3(0.0, -1.0f, 0.0f);
+  Vector2 v1 = VEC2(0.0f, -1.0f);
 
+  Vector2 v2 = VEC2(1.0f, 1.0f);
 
-  VEC3_PRINT(vector3_rotate(v, 90.0f, VEC3(1, 0, 0)));
+  printf("%12.6f\n", vector2_dot(v1, v2));
 
   return 0;
 

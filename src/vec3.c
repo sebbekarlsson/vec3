@@ -48,6 +48,13 @@ float vector3_dot(Vector3 a, Vector3 b) {
   return dot_x + dot_y + dot_z;
 }
 
+float vector2_dot(Vector2 a, Vector2 b) {
+  float dot_x = a.x * b.x;
+  float dot_y = a.y * b.y;
+
+  return dot_x + dot_y;
+}
+
 Vector3 vector3_cross(Vector3 a, Vector3 b) {
   Vector3 v = VEC3(0, 0, 0);
   v.x = a.y * b.z - a.z * b.y;
