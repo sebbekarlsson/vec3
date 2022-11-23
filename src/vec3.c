@@ -73,7 +73,7 @@ Vector3 vector3_downscale(Vector3 a, float scale) {
 
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
-  if ((fabsf(mag) <= 0.000001f) || isinf(mag) || isnan(mag))
+  if ((fabsf(mag) <= 0.00001f) || isinf(mag) || isnan(mag))
     return VEC3(0, 0, 0);
 
   return vector3_apply_extra(VEC3(a.x / mag, a.y / mag, a.z / mag), a);
