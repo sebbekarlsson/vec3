@@ -73,13 +73,15 @@ Vector3 vector3_downscale(Vector3 a, float scale) {
 
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
-  if (mag == 0)
+  if ((fabsf(mag) <= 0.000001f) || isinf(mag) || isnan(mag))
     return VEC3(0, 0, 0);
 
   return vector3_apply_extra(VEC3(a.x / mag, a.y / mag, a.z / mag), a);
 }
 float vector3_mag(Vector3 a) {
-  return sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
+  float mag = sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
+  if (isinf(mag) || isnan(mag)) return 0.0f;
+  return mag;
 }
 
 float vector3_mag_euclidean(Vector3 a) {

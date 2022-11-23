@@ -11,9 +11,11 @@ int main(int argc,  char* argv[]) {
 
   Vector2 v1 = VEC2(0.0f, -1.0f);
 
-  Vector2 v2 = VEC2(1.0f, 1.0f);
+  Vector2 v2 = VEC2(1.0f, 1.003f);
 
   printf("%12.6f\n", vector2_dot(v1, v2));
+
+  printf("%12.6f\n", glm_vec2_dot((vec2){ v1.x, v1.y }, (vec2){v2.x, v2.y}));
 
   return 0;
 
