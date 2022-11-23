@@ -95,7 +95,6 @@ Vector3 vector3_min(Vector3 a, Vector3 b);
 Vector3 vector3_max(Vector3 a, Vector3 b);
 Vector3 vector3_mul(Vector3 a, Vector3 b);
 
-Vector3Pair vector3_min_max(Vector3 a, Vector3 b);
 
 float vector3_sum(Vector3 a);
 float vector3_angle2d_to(Vector3 a, Vector3 b);
@@ -163,9 +162,6 @@ float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c);
 Vector3 vector3_angle_vector(Vector3 dir, Vector3 up);
 float vector3_mag_euclidean(Vector3 a);
 Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value);
-
-
-float vector3_diff_percentage(Vector3 a, Vector3 b);
 
 
 Vector4 vector3_quat(Vector3 dir, Vector3 up);

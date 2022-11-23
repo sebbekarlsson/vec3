@@ -201,20 +201,8 @@ Vector3 vector3_project(Vector3 a, Vector3 b) {
   return vector3_scale(a, scalar);
 }
 
-#define __TO(a, b, s)                                                          \
-  (a > b ? (a - s < b ? b : (a - s)) : (a + s > b ? b : (a + s)))
-
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale) {
   Vector3 result = VEC3(from.x, from.y, from.z);
-
-  /*/  if (scale.x > 1) scale.x = 1;
-    if (scale.y > 1) scale.y = 1;
-    if (scale.z > 1) scale.z = 1;
-
-    if (scale.x < -1) scale.x = -1;
-    if (scale.y < -1) scale.y = -1;
-    if (scale.z < -1) scale.z = -1;*/
-
   result.x += (to.x - result.x) * scale.x;
   result.y += (to.y - result.y) * scale.y;
   result.z += (to.z - result.z) * scale.z;
@@ -285,11 +273,6 @@ float vector3_angle3d(Vector3 a) {
 }
 float vector3_angle3d_to(Vector3 a, Vector3 b) {
   return glm_vec3_angle((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z});
-  /*  float dot = vector3_dot(a, b);
-    float mag_a = vector3_mag(a);
-    float mag_b = vector3_mag(b);
-    float frac = dot / (mag_a * mag_b);
-    return roundf((acosf(frac) * 180) / M_PI);*/
 }
 Vector3 vector3_angle3d_to_radians_vector(Vector3 a, Vector3 b) {
 
@@ -439,56 +422,6 @@ unsigned int vector3_is_inf(Vector3 a) {
   return 0;
 }
 
-float vector3_diff_percentage(Vector3 a, Vector3 b) {
-  float max_x = fmaxf(a.x, b.x);
-  float max_y = fmaxf(a.y, b.y);
-  float max_z = fmaxf(a.z, b.z);
-
-  float min_x = fminf(a.x, b.x);
-  float min_y = fminf(a.y, b.y);
-  float min_z = fminf(a.z, b.z);
-
-  float dx = fabsf(max_x - min_x);
-  float dy = fabsf(max_y - min_y);
-  float dz = fabsf(max_z - min_z);
-
-  float px = (dx / max_x);
-  float py = (dy / max_y);
-  float pz = (dz / max_z);
-
-  float f = (px + py + pz) / 3.0f;
-
-  return f * 100.0f;
-}
-
-Vector3Pair vector3_min_max(Vector3 a, Vector3 b) {
-
-  unsigned int min_score_a = 0;
-  unsigned int min_score_b = 0;
-
-  if (a.x < b.x)
-    min_score_a += 1;
-  else
-    min_score_b += 1;
-
-  if (a.y < b.y)
-    min_score_a += 1;
-  else
-    min_score_b += 1;
-
-  if (a.z < b.z)
-    min_score_a += 1;
-  else
-    min_score_b += 1;
-
-  int min = min_score_a > min_score_b ? 0 : 1;
-  int max = !min;
-
-  Vector3 _max = min == 0 ? a : b;
-  Vector3 _min = max == 0 ? a : b;
-
-  return (Vector3Pair){.a = _min, .b = _max};
-}
 
 Vector3 vector3_angle_vector(Vector3 dir, Vector3 up) {
   float yaw = atan2(dir.x, dir.z);
