@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #define VECTOR3_SERIALIZE_CAP 256
+#define VEC3_TINY_FLOAT 0.00001f
 
 typedef struct {
   float x;
@@ -170,6 +171,7 @@ typedef float (*Vector3CallFunction)(float v);
 Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 
 Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis);
+Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q);
 
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})
@@ -198,7 +200,7 @@ Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis);
 
 #define VEC4(x, y, z, w) ((Vector4){ x, y, z, w })
 
-#define VEC41(V) ((Vector4){ V, V, V, V });
+#define VEC41(V) ((Vector4){ V, V, V, V })
 
 
 #define VEC4_PRINT(a)                                                          \

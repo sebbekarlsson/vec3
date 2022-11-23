@@ -12,7 +12,7 @@ file(GLOB vec3_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c ${CMAKE_CURRENT_SOURCE_
 message(${vec3_files})
 
 add_executable(vec3_e ${vec3_files})
-target_compile_options(vec3_e PRIVATE -g -Wall)
+target_compile_options(vec3_e PRIVATE -Wall)
 
 
 

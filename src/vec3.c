@@ -54,11 +54,11 @@ float vector2_dot(Vector2 a, Vector2 b) {
 }
 
 Vector3 vector3_cross(Vector3 a, Vector3 b) {
-  Vector3 v = VEC3(0, 0, 0);
-  v.x = a.y * b.z - a.z * b.y;
-  v.y = a.z * b.x - a.x * b.z;
-  v.z = a.x * b.y - a.y * b.x;
-  return v;
+  return VEC3(
+    a.y * b.z - a.z * b.y,
+    a.z * b.x - a.x * b.z,
+    a.x * b.y - a.y * b.x
+  );
 }
 
 Vector3 vector3_scale(Vector3 a, float scale) {
@@ -66,13 +66,15 @@ Vector3 vector3_scale(Vector3 a, float scale) {
 }
 
 Vector3 vector3_downscale(Vector3 a, float scale) {
-  return VEC3(a.x / scale, a.y / scale, a.z / scale);
+  return vector3_scale(a, 1.0f / scale);
 }
 
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
-  if ((fabsf(mag) <= 0.00001f) || isinf(mag) || isnan(mag))
+
+  if ((fabsf(mag) <= VEC3_TINY_FLOAT) || isinf(mag) || isnan(mag)) {
     return VEC3(0, 0, 0);
+  }
 
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
@@ -85,8 +87,9 @@ float vector3_mag(Vector3 a) {
 float vector3_mag_euclidean(Vector3 a) {
   float value = glm_vec3_norm((vec3){a.x, a.y, a.z});
 
-  if (isinf(value) || isnan(value) || value >= FLT_MAX)
-    value = 0.000000001f;
+  if (isinf(value) || isnan(value) || value >= FLT_MAX) {
+    value = 0.0f;
+  }
 
   return value;
 }
@@ -102,10 +105,6 @@ Vector3 *vector3_alloc(Vector3 a) {
 
 Vector3 vector3_mul(Vector3 a, Vector3 b) {
   return VEC3_OP(a, *, b);
-}
-
-float vector3_distance2d(Vector3 a, Vector3 b) {
-  return (hypotf(b.x - a.x, b.y - a.y));
 }
 
 Vector3 vector3_round(Vector3 a) {
@@ -129,39 +128,20 @@ Vector3 vector3_min(Vector3 a, Vector3 b) {
   vec3 mm = GLM_VEC3_ZERO_INIT;
   glm_vec3_minv((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z}, mm);
 
-  if (vector3_compare(a, VEC3(mm[0], mm[1], mm[2]))) {
-    return a;
-  } else if (vector3_compare(b, VEC3(mm[0], mm[1], mm[2]))) {
-    return b;
-  }
-
-  float mag_a = vector3_mag(a);
-  float mag_b = vector3_mag(b);
-
-  return mag_a < mag_b ? a : b;
+  return VEC3_FROM_GLM(mm);
 }
 
 Vector3 vector3_max(Vector3 a, Vector3 b) {
-  float mag_a = vector3_mag(a);
-  float mag_b = vector3_mag(b);
-
   vec3 mm = GLM_VEC3_ZERO_INIT;
   glm_vec3_maxv((vec3){a.x, a.y, a.z}, (vec3){b.x, b.y, b.z}, mm);
 
-  if (vector3_compare(a, VEC3(mm[0], mm[1], mm[2]))) {
-    return a;
-  } else if (vector3_compare(b, VEC3(mm[0], mm[1], mm[2]))) {
-    return b;
-  }
-
-  return mag_a > mag_b ? a : b;
+  return VEC3_FROM_GLM(mm);
 }
 
 float vector3_angle2d_to(Vector3 a, Vector3 b) {
   float angle = atan2f(b.y - a.y, b.x - a.x);
   float degrees = 180 * angle / M_PI;
   return degrees;
-  return (float)((int)(360 + roundf(degrees)) % 360);
 }
 
 float vector3_length_sq(Vector3 a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
@@ -174,7 +154,7 @@ Vector3 vector3_project_centroid(Vector3 a, Vector3 normal, Vector3 centroid) {
 Vector3 vector3_project(Vector3 a, Vector3 b) {
   float deno = vector3_length_sq(a);
 
-  if (deno == 0)
+  if (fabsf(deno) <= VEC3_TINY_FLOAT)
     return VEC3(0, 0, 0);
 
   float scalar = vector3_dot(b, a) / deno;
@@ -209,6 +189,10 @@ bool vector3_is_zero(Vector3 a) { return ceilf(vector3_mag(a)) == 0.0f; }
 
 float vector3_distance3d(Vector3 a, Vector3 b) {
   return sqrtf(powf(a.x - b.x, 2) + powf(a.y - b.y, 2) + powf(a.z - b.z, 2));
+}
+
+float vector3_distance2d(Vector3 a, Vector3 b) {
+  return (hypotf(b.x - a.x, b.y - a.y));
 }
 
 float vector3_mag_diff(Vector3 a, Vector3 b) {
@@ -394,12 +378,12 @@ Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value) {
 
 bool vector3_is_inf(Vector3 a) {
   if (number_is_bad(a.x))
-    return 1;
+    return true;
   if (number_is_bad(a.y))
-    return 1;
+    return true;
   if (number_is_bad(a.z))
-    return 1;
-  return 0;
+    return true;
+  return false;
 }
 
 
@@ -471,4 +455,10 @@ Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis) {
   v2 = vector3_scale(k, vector3_dot(k, v) * (1.0f - c));
 
   return vector3_add(v1, v2);
+}
+
+Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q) {
+  mat4 m = GLM_MAT4_IDENTITY_INIT;
+  glm_quat_rotate_at(m, q, VEC3_GLM(pivot));
+  return vector3_project_onto_mat4(v, m);
 }
