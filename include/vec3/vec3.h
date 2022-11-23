@@ -98,8 +98,6 @@ Vector3 vector3_mul(Vector3 a, Vector3 b);
 
 float vector3_sum(Vector3 a);
 float vector3_angle2d_to(Vector3 a, Vector3 b);
-Vector3 vector3_normal(Vector3 a);
-Vector3 vector3_normalize(Vector3 a);
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale);
 
 Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor);
@@ -117,9 +115,9 @@ Vector3 *vector3_alloc(Vector3 a);
 void vector3_string(Vector3 a, char *buffer);
 Vector3 vector3_project_centroid(Vector3 a, Vector3 normal, Vector3 centroid);
 Vector3 vector3_compute_normal(Vector3 v1, Vector3 v2, Vector3 v3);
-unsigned int vector3_is_zero(Vector3 a);
+bool vector3_is_zero(Vector3 a);
 float vector3_dot(Vector3 a, Vector3 b);
-unsigned int vector3_compare(Vector3 a, Vector3 b);
+bool vector3_compare(Vector3 a, Vector3 b);
 Vector3 vector3_cross(Vector3 a, Vector3 b);
 float vector3_distance2d(Vector3 a, Vector3 b);
 float vector3_distance3d(Vector3 a, Vector3 b);
@@ -166,7 +164,7 @@ Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value);
 
 Vector4 vector3_quat(Vector3 dir, Vector3 up);
 
-unsigned int vector3_is_inf(Vector3 a);
+bool vector3_is_inf(Vector3 a);
 
 typedef float (*Vector3CallFunction)(float v);
 Vector3 vector3_call(Vector3 a, Vector3CallFunction func);

@@ -11,17 +11,13 @@ void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->w = src.w;
 }
 
-Vector3 vector3_apply_extra(Vector3 out, Vector3 src) {
-  out.w = src.w;
-  return out;
-}
 
 Vector3 vector3_add(Vector3 a, Vector3 b) {
-  return vector3_apply_extra((Vector3){a.x + b.x, a.y + b.y, a.z + b.z}, a);
+  return VEC3(a.x + b.x, a.y + b.y, a.z + b.z);
 }
 
 Vector3 vector3_sub(Vector3 a, Vector3 b) {
-  return vector3_apply_extra((Vector3){a.x - b.x, a.y - b.y, a.z - b.z}, a);
+  return VEC3(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
 void vector2_copy(Vector2 *dest, Vector2 src) {
@@ -62,15 +58,15 @@ Vector3 vector3_cross(Vector3 a, Vector3 b) {
   v.x = a.y * b.z - a.z * b.y;
   v.y = a.z * b.x - a.x * b.z;
   v.z = a.x * b.y - a.y * b.x;
-  return vector3_apply_extra(v, a);
+  return v;
 }
 
 Vector3 vector3_scale(Vector3 a, float scale) {
-  return vector3_apply_extra(VEC3(a.x * scale, a.y * scale, a.z * scale), a);
+  return VEC3(a.x * scale, a.y * scale, a.z * scale);
 }
 
 Vector3 vector3_downscale(Vector3 a, float scale) {
-  return vector3_apply_extra(VEC3(a.x / scale, a.y / scale, a.z / scale), a);
+  return VEC3(a.x / scale, a.y / scale, a.z / scale);
 }
 
 Vector3 vector3_unit(Vector3 a) {
@@ -78,7 +74,7 @@ Vector3 vector3_unit(Vector3 a) {
   if ((fabsf(mag) <= 0.00001f) || isinf(mag) || isnan(mag))
     return VEC3(0, 0, 0);
 
-  return vector3_apply_extra(VEC3(a.x / mag, a.y / mag, a.z / mag), a);
+  return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
 float vector3_mag(Vector3 a) {
   float mag = sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
@@ -105,7 +101,7 @@ Vector3 *vector3_alloc(Vector3 a) {
 }
 
 Vector3 vector3_mul(Vector3 a, Vector3 b) {
-  return vector3_apply_extra(VEC3_OP(a, *, b), a);
+  return VEC3_OP(a, *, b);
 }
 
 float vector3_distance2d(Vector3 a, Vector3 b) {
@@ -113,7 +109,7 @@ float vector3_distance2d(Vector3 a, Vector3 b) {
 }
 
 Vector3 vector3_round(Vector3 a) {
-  return vector3_apply_extra(VEC3(roundf(a.x), roundf(a.y), roundf(a.z)), a);
+  return VEC3(roundf(a.x), roundf(a.y), roundf(a.z));
 }
 
 float vector3_angle2d(Vector3 a) {
@@ -123,20 +119,6 @@ float vector3_angle2d(Vector3 a) {
   // return (float)((int)(360+roundf(degrees))%360);
 }
 
-// TODO: check if a is still valid
-Vector3 vector3_normal(Vector3 a) {
-  return vector3_apply_extra((Vector3){-a.y, a.x, a.z}, a);
-}
-
-Vector3 vector3_normalize(Vector3 a) {
-  float mag = vector3_mag(a);
-
-  if (mag == 0) {
-    mag = 1;
-  }
-
-  return vector3_apply_extra(VEC3(a.x / mag, a.y / mag, a.z / mag), a);
-}
 
 float vector3_sum(Vector3 a) { return a.x + a.y + a.z; }
 
@@ -190,11 +172,10 @@ Vector3 vector3_project_centroid(Vector3 a, Vector3 normal, Vector3 centroid) {
 }
 
 Vector3 vector3_project(Vector3 a, Vector3 b) {
-
   float deno = vector3_length_sq(a);
 
   if (deno == 0)
-    return vector3_apply_extra(VEC3(0, 0, 0), a);
+    return VEC3(0, 0, 0);
 
   float scalar = vector3_dot(b, a) / deno;
 
@@ -207,7 +188,7 @@ Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale) {
   result.y += (to.y - result.y) * scale.y;
   result.z += (to.z - result.z) * scale.z;
 
-  return vector3_apply_extra(result, from);
+  return result;
 }
 
 Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor) {
@@ -216,7 +197,7 @@ Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor) {
   glm_vec3_lerp((vec3){from.x, from.y, from.z}, (vec3){to.x, to.y, to.z},
                 factor, result);
 
-  return vector3_apply_extra(VEC3(result[0], result[1], result[2]), to);
+  return VEC3(result[0], result[1], result[2]);
 }
 
 Vector3 vector3_project_on_plane(Vector3 a, Vector3 normal) {
@@ -224,7 +205,7 @@ Vector3 vector3_project_on_plane(Vector3 a, Vector3 normal) {
   return vector3_sub(a, next_vec);
 }
 
-unsigned int vector3_is_zero(Vector3 a) { return ceilf(vector3_mag(a)) == 0; }
+bool vector3_is_zero(Vector3 a) { return ceilf(vector3_mag(a)) == 0.0f; }
 
 float vector3_distance3d(Vector3 a, Vector3 b) {
   return sqrtf(powf(a.x - b.x, 2) + powf(a.y - b.y, 2) + powf(a.z - b.z, 2));
@@ -246,7 +227,7 @@ Vector3 vector3_compute_normal(Vector3 v1, Vector3 v2, Vector3 v3) {
   return vector3_cross(e1, e2);
 }
 
-unsigned int vector3_compare(Vector3 a, Vector3 b) {
+bool vector3_compare(Vector3 a, Vector3 b) {
   return a.x == b.x && a.y == b.y && a.z == b.z;
 }
 
@@ -259,8 +240,9 @@ void vector3_to_glm(Vector3 a, vec3 dest) {
 Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b) {
   vec4 dest;
   glm_mat4_mulv(b, (vec4){a.x, a.y, a.z, a.w}, dest);
-  return vector3_apply_extra(
-      (Vector3){.x = dest[0], .y = dest[1], .z = dest[2]}, a);
+  Vector3 v = VEC3(dest[0], dest[1], dest[2]);
+  v.w = dest[3];
+  return v;
 }
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N) {
@@ -280,7 +262,7 @@ Vector3 vector3_angle3d_to_radians_vector(Vector3 a, Vector3 b) {
   Vector3 n2 = vector3_unit(a);
   Vector3 r = vector3_sub(n1, n2);
 
-  return vector3_apply_extra(VEC3(glm_rad(r.x), glm_rad(r.y), glm_rad(r.z)), a);
+  return VEC3(glm_rad(r.x), glm_rad(r.y), glm_rad(r.z));
 }
 
 Vector3 vector3_angle3d_to_deg_vector(Vector3 a, Vector3 b) {
@@ -289,13 +271,11 @@ Vector3 vector3_angle3d_to_deg_vector(Vector3 a, Vector3 b) {
   Vector3 n2 = vector3_unit(a);
   Vector3 r = vector3_sub(n1, n2);
 
-  return vector3_apply_extra(
-      VEC3(glm_deg(glm_rad(r.x)), glm_deg(glm_rad(r.y)), glm_deg(glm_rad(r.z))),
-      a);
+  return VEC3(glm_deg(glm_rad(r.x)), glm_deg(glm_rad(r.y)), glm_deg(glm_rad(r.z)));
 }
 
 Vector3 vector3_xz(Vector3 v) {
-  return vector3_apply_extra(VEC3(v.x, 0, v.z), v);
+  return VEC3(v.x, 0, v.z);
 }
 Vector3 vector3_find_min_vec(Vector3 *vectors, uint32_t length) {
   Vector3 min = vectors[0];
@@ -392,7 +372,7 @@ Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_cross(a, vector3_cross(b, c));
 }
 
-static inline unsigned int number_is_bad(float v) {
+static inline bool number_is_bad(float v) {
   return (isinf(v) || isnan(v) || fabsf(v) >= FLT_MAX);
 }
 
@@ -412,7 +392,7 @@ Vector3 vector3_smoothstep(Vector3 edge0, Vector3 edge1, Vector3 value) {
   return value;
 }
 
-unsigned int vector3_is_inf(Vector3 a) {
+bool vector3_is_inf(Vector3 a) {
   if (number_is_bad(a.x))
     return 1;
   if (number_is_bad(a.y))
@@ -491,6 +471,4 @@ Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis) {
   v2 = vector3_scale(k, vector3_dot(k, v) * (1.0f - c));
 
   return vector3_add(v1, v2);
-
-
 }
