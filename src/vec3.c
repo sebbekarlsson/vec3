@@ -45,7 +45,9 @@ float vector3_dot(Vector3 a, Vector3 b) {
   float dot_y = a.y * b.y;
   float dot_z = a.z * b.z;
 
-  return dot_x + dot_y + dot_z;
+  float d = dot_x + dot_y + dot_z;
+
+  return (isinf(d) || isnan(d)) ? 0.0f : d;
 }
 
 float vector2_dot(Vector2 a, Vector2 b) {
