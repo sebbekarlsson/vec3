@@ -9,6 +9,7 @@
 
 int main(int argc,  char* argv[]) {
 
+
   Vector2 v1 = VEC2(0.0f, -1.0f);
 
   Vector2 v2 = VEC2(1.0f, 1.003f);

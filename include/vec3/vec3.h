@@ -5,7 +5,7 @@
 #include <stdint.h>
 
 #define VECTOR3_SERIALIZE_CAP 256
-#define VEC3_TINY_FLOAT 0.00001f
+#define VEC3_TINY_FLOAT 0.0000001f
 
 typedef struct {
   float x;

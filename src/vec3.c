@@ -41,9 +41,7 @@ float vector3_dot(Vector3 a, Vector3 b) {
   float dot_y = a.y * b.y;
   float dot_z = a.z * b.z;
 
-  float d = dot_x + dot_y + dot_z;
-
-  return (isinf(d) || isnan(d)) ? 0.0f : d;
+  return dot_x + dot_y + dot_z;
 }
 
 float vector2_dot(Vector2 a, Vector2 b) {
@@ -72,16 +70,14 @@ Vector3 vector3_downscale(Vector3 a, float scale) {
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
 
-  if ((fabsf(mag) <= VEC3_TINY_FLOAT) || isinf(mag) || isnan(mag)) {
+  if (fabsf(mag) < VEC3_TINY_FLOAT) {
     return VEC3(0, 0, 0);
   }
 
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
 float vector3_mag(Vector3 a) {
-  float mag = sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
-  if (isinf(mag) || isnan(mag)) return 0.0f;
-  return mag;
+  return sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
 }
 
 float vector3_mag_euclidean(Vector3 a) {
@@ -154,7 +150,7 @@ Vector3 vector3_project_centroid(Vector3 a, Vector3 normal, Vector3 centroid) {
 Vector3 vector3_project(Vector3 a, Vector3 b) {
   float deno = vector3_length_sq(a);
 
-  if (fabsf(deno) <= VEC3_TINY_FLOAT)
+  if (fabsf(deno) < VEC3_TINY_FLOAT)
     return VEC3(0, 0, 0);
 
   float scalar = vector3_dot(b, a) / deno;
