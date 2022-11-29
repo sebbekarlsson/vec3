@@ -197,6 +197,8 @@ Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q);
 #define VEC3_OR(a, b) (vector3_is_zero(a) ? b : a)
 
 
+#define VEC3_TO_VEC2(v) VEC2(v.x, v.y)
+
 
 #define VEC4(x, y, z, w) ((Vector4){ x, y, z, w })
 
