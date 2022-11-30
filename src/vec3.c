@@ -64,13 +64,14 @@ Vector3 vector3_scale(Vector3 a, float scale) {
 }
 
 Vector3 vector3_downscale(Vector3 a, float scale) {
+  if (fabsf(scale) < VEC3_TINY_FLOAT) return VEC31(0);
   return vector3_scale(a, 1.0f / scale);
 }
 
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
 
-  if (fabsf(mag) < VEC3_TINY_FLOAT) {
+  if ((fabsf(mag) < VEC3_TINY_FLOAT) || (isinf(mag) || isnan(mag))) {
     return VEC3(0, 0, 0);
   }
 
@@ -91,12 +92,8 @@ float vector3_mag_euclidean(Vector3 a) {
 }
 
 Vector3 *vector3_alloc(Vector3 a) {
-  Vector3 *vec = NEW(Vector3);
-  vec->x = a.x;
-  vec->y = a.y;
-  vec->z = a.z;
-  vec->w = a.w;
-  return vec;
+  printf("Dont use this function. (%s) \n", __func__);
+  return 0;
 }
 
 Vector3 vector3_mul(Vector3 a, Vector3 b) {
