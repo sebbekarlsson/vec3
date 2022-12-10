@@ -173,6 +173,8 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis);
 Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q);
 
+uint64_t vector3_hash(Vector3 v);
+
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})
 

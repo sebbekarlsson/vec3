@@ -10,7 +10,12 @@
 int main(int argc,  char* argv[]) {
 
 
-  printf("%12.6f\n", vector3_dot(VEC3(1.0f, 0.0f, 0.01f), VEC3(0.1f, 0.59f, 1.0f)));
+  Vector3 v = VEC3(0.1f, -0.1f, -0.001f);
+
+  uint64_t hash = vector3_hash(v);
+
+  printf("%ld\n", hash);
+
 
   return 0;
 

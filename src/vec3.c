@@ -3,6 +3,7 @@
 #include <vec3/macros.h>
 #include <vec3/vec3.h>
 #include <vec3/util.h>
+#include <stdint.h>
 
 void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->x = src.x;
@@ -454,4 +455,14 @@ Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q) {
   mat4 m = GLM_MAT4_IDENTITY_INIT;
   glm_quat_rotate_at(m, q, VEC3_GLM(pivot));
   return vector3_project_onto_mat4(v, m);
+}
+
+uint64_t vector3_hash(Vector3 v) {
+  uint64_t h = 0;
+
+  h ^= (uint64_t)(v.x * (float)UINT64_C(0x9e3779b97f4a7c15));
+  h ^= (uint64_t)(v.y * (float)UINT64_C(0x9e3779b97f4a7c15)) >> 32;
+  h ^= (uint64_t)(v.z * (float)UINT64_C(0x9e3779b97f4a7c15)) >> 32;
+
+  return h;
 }
