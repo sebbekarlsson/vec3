@@ -72,7 +72,7 @@ Vector3 vector3_downscale(Vector3 a, float scale) {
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
 
-  if ((fabsf(mag) < VEC3_TINY_FLOAT) || (isinf(mag) || isnan(mag))) {
+  if (mag == 0.0 || (isinf(mag) || isnan(mag))) {
     return VEC3(0, 0, 0);
   }
 

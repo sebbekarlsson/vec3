@@ -23,6 +23,7 @@ typedef struct {
 
 
   int64_t mesh_index;
+
 } VEC3Triangle;
 
 typedef struct {
