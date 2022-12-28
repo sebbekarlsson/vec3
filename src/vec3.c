@@ -145,16 +145,7 @@ Vector3 vector3_project_centroid(Vector3 a, Vector3 normal, Vector3 centroid) {
   return vector3_sub(a, vector3_scale(normal, dotscalar));
 }
 
-Vector3 vector3_project(Vector3 a, Vector3 b) {
-  float deno = vector3_length_sq(a);
 
-  if (fabsf(deno) < VEC3_TINY_FLOAT)
-    return VEC3(0, 0, 0);
-
-  float scalar = vector3_dot(b, a) / deno;
-
-  return vector3_scale(a, scalar);
-}
 
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale) {
   Vector3 result = VEC3(from.x, from.y, from.z);
@@ -174,9 +165,28 @@ Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor) {
   return VEC3(result[0], result[1], result[2]);
 }
 
+Vector3 vector3_project(Vector3 a, Vector3 b) {
+  float deno = vector3_length_sq(a);
+
+  if (fabsf(deno) < VEC3_TINY_FLOAT)
+    return VEC3(0, 0, 0);
+
+  float scalar = vector3_dot(b, a) / deno;
+
+  return vector3_scale(a, scalar);
+}
+
 Vector3 vector3_project_on_plane(Vector3 a, Vector3 normal) {
   Vector3 next_vec = vector3_project(a, normal);
   return vector3_sub(a, next_vec);
+}
+
+Vector3 vector3_project_on_disk(Vector3 a, Vector3 normal) {
+  float dotProduct = vector3_dot(a, normal);
+  float normalVectorLength = vector3_mag(normal);
+  Vector3 projection = vector3_scale(normal, (dotProduct / (normalVectorLength * normalVectorLength)));
+
+  return projection;
 }
 
 bool vector3_is_zero(Vector3 a) { return ceilf(vector3_mag(a)) == 0.0f; }
