@@ -87,6 +87,17 @@ typedef struct {
   Vector3 b;
 } Vector3PairIndexed;
 
+//////////////////////////// VEC2
+void vector2_copy(Vector2 *dest, Vector2 src);
+void vector2Double_copy(Vector2Double *dest, Vector2Double src);
+Vector2 vector2_add(Vector2 a, Vector2 b);
+Vector2 vector2_sub(Vector2 a, Vector2 b);
+Vector2 vector2_mul(Vector2 a, Vector2 b);
+Vector2 vector2_scale(Vector2 a, float s);
+float vector2_dot(Vector2 a, Vector2 b);
+
+
+/////////////////////////// VEC3
 void vector3_copy(Vector3 *dest, Vector3 src);
 Vector3 vector3_add(Vector3 a, Vector3 b);
 Vector3 vector3_sub(Vector3 a, Vector3 b);
@@ -135,13 +146,6 @@ Vector3 vector3_reflect(Vector3 I, Vector3 N);
 
 Vector3 vector3_xz(Vector3 v);
 
-void vector2_copy(Vector2 *dest, Vector2 src);
-void vector2Double_copy(Vector2Double *dest, Vector2Double src);
-Vector2 vector2_add(Vector2 a, Vector2 b);
-
-float vector2_dot(Vector2 a, Vector2 b);
-
-
 Vector3 vector_downscale(Vector3 a, float scale);
 
 
@@ -174,6 +178,15 @@ Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis);
 Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q);
 
 uint64_t vector3_hash(Vector3 v);
+
+
+/////////////////////////// VEC4
+
+Vector4 vector4_scale(Vector4 v, float s);
+Vector4 vector4_mul(Vector4 a, Vector4 b);
+Vector4 vector4_add(Vector4 a, Vector4 b);
+Vector4 vector4_sub(Vector4 a, Vector4 b);
+
 
 #define VEC3_OP(a, op, b) ((Vector3){a.x op b.x, a.y op b.y, a.z op b.z})
 #define VEC3_OP_SR(a, op, b) ((Vector3){a.x op b, a.y op b, a.z op b})

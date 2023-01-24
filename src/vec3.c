@@ -5,6 +5,28 @@
 #include <vec3/util.h>
 #include <stdint.h>
 
+
+Vector2 vector2_scale(Vector2 a, float s) { return VEC2(a.x * s, a.y * s); }
+Vector2 vector2_add(Vector2 a, Vector2 b) { return VEC2(a.x + b.x, a.y + b.y); }
+Vector2 vector2_sub(Vector2 a, Vector2 b) { return VEC2(a.x - b.x, a.y - b.y); }
+Vector2 vector2_mul(Vector2 a, Vector2 b) { return VEC2(a.x * b.x, a.y * b.y); }
+Vector2 vector2_cross(Vector2 a, Vector2 b) {
+  Vector3 c = vector3_cross(VEC3(a.x, a.y, 1.0), VEC3(b.x, b.y, 1.0));
+  return VEC2(c.x, c.y);
+}
+
+Vector2 vector2_reflect(Vector2 I, Vector2 N) {
+  return vector2_sub(I, vector2_mul(vector2_scale(N, 2.0f), vector2_mul(I, N)));
+}
+
+float vector2_dot(Vector2 a, Vector2 b) {
+  float dot_x = a.x * b.x;
+  float dot_y = a.y * b.y;
+
+  return dot_x + dot_y;
+}
+
+
 void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->x = src.x;
   dest->y = src.y;
@@ -21,18 +43,6 @@ Vector3 vector3_sub(Vector3 a, Vector3 b) {
   return VEC3(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
-void vector2_copy(Vector2 *dest, Vector2 src) {
-  dest->x = src.x;
-  dest->y = src.y;
-}
-
-void vector2Double_copy(Vector2Double *dest, Vector2Double src) {
-  dest->x = src.x;
-  dest->y = src.y;
-}
-
-Vector2 vector2_add(Vector2 a, Vector2 b) { return VEC2(a.x + b.x, a.y + b.y); }
-
 void vector3_string(Vector3 a, char *buffer) {
   sprintf(buffer, "(%.1f, %.1f, %.1f)", a.x, a.y, a.z);
 }
@@ -45,11 +55,14 @@ float vector3_dot(Vector3 a, Vector3 b) {
   return dot_x + dot_y + dot_z;
 }
 
-float vector2_dot(Vector2 a, Vector2 b) {
-  float dot_x = a.x * b.x;
-  float dot_y = a.y * b.y;
+void vector2_copy(Vector2 *dest, Vector2 src) {
+  dest->x = src.x;
+  dest->y = src.y;
+}
 
-  return dot_x + dot_y;
+void vector2Double_copy(Vector2Double *dest, Vector2Double src) {
+  dest->x = src.x;
+  dest->y = src.y;
 }
 
 Vector3 vector3_cross(Vector3 a, Vector3 b) {
@@ -475,4 +488,34 @@ uint64_t vector3_hash(Vector3 v) {
   h ^= (uint64_t)(v.z * (float)UINT64_C(0x9e3779b97f4a7c15)) >> 32;
 
   return h;
+}
+
+
+Vector4 vector4_scale(Vector4 v, float s) {
+  return VEC4(v.x * s, v.y * s, v.z * s, v.w * s);
+}
+Vector4 vector4_mul(Vector4 a, Vector4 b) {
+  return VEC4(
+    a.x * b.x,
+    a.y * b.y,
+    a.z * b.z,
+    a.w * b.w
+  );
+}
+
+Vector4 vector4_add(Vector4 a, Vector4 b) {
+  return VEC4(
+    a.x + b.x,
+    a.y + b.y,
+    a.z + b.z,
+    a.w + b.w
+  );
+}
+Vector4 vector4_sub(Vector4 a, Vector4 b) {
+  return VEC4(
+    a.x - b.x,
+    a.y - b.y,
+    a.z - b.z,
+    a.w - b.w
+  );
 }
