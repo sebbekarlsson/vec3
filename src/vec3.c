@@ -97,23 +97,38 @@ Vector3 vector3_unit_unsafe(Vector3 a) {
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
 
+
+Vector3 vector3_unit_attempt_fix(Vector3 a) {
+  if (isinf(a.x) && isinf(a.y) && !isinf(a.z)) return VEC3(1, 1, 0);
+  if (isinf(a.y) && isinf(a.z) && !isinf(a.x)) return VEC3(0, 1, 1);
+  if (isinf(a.x) && isinf(a.z) && !isinf(a.y)) return VEC3(1, 0, 1);
+  if (isinf(a.x)) return VEC3(1, 0, 0);
+  if (isinf(a.y)) return VEC3(0, 1, 0);
+  if (isinf(a.z)) return VEC3(0, 0, 1);
+  
+  if (ceilf(fabsf(a.x)) == 0.0 && ceilf(fabsf(a.y)) == 0.0 && ceilf(fabsf(a.z)) == 0.0)
+    return VEC31(0.0f);
+
+  float m = -99999.0f;
+  Vector3 v = VEC31(0.0f);
+  
+  if (fabsf(a.x) > m) { m = a.x; v = VEC3(1, 0, 0); }
+  if (fabsf(a.y) > m) { m = a.y; v = VEC3(0, 1, 0); }
+  if (fabsf(a.z) > m) { m = a.z; v = VEC3(0, 0, 1); }
+  return v;
+}
+
 Vector3 vector3_unit_attempt(Vector3 a) {
   float mag = vector3_mag(a);
 
   if (mag <= 0.000001f || isinf(mag) || isnan(mag)) {
-    if (isinf(a.x) && isinf(a.y) && !isinf(a.z)) return VEC3(1, 1, 0);
-    if (isinf(a.y) && isinf(a.z) && !isinf(a.x)) return VEC3(0, 1, 1);
-    if (isinf(a.x) && isinf(a.z) && !isinf(a.y)) return VEC3(1, 0, 1);
-    if (isinf(a.x)) return VEC3(1, 0, 0);
-    if (isinf(a.y)) return VEC3(0, 1, 0);
-    if (isinf(a.z)) return VEC3(0, 0, 1);
-    float m = -99999.0f;
-    Vector3 v = VEC31(0.0f);
-    if (fabsf(a.x) > m) { m = a.x; v = VEC3(1, 0, 0); }
-    if (fabsf(a.y) > m) { m = a.y; v = VEC3(0, 1, 0); }
-    if (fabsf(a.z) > m) { m = a.z; v = VEC3(0, 0, 1); }
-    return v;
+    Vector3 fixed = vector3_unit_attempt_fix(a);
+    fixed.x *= vec3_sign(a.x);
+    fixed.y *= vec3_sign(a.y);
+    fixed.z *= vec3_sign(a.z);
+    return fixed;
   }
+  
 
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }

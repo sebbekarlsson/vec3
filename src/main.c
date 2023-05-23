@@ -11,8 +11,11 @@
 int main(int argc,  char* argv[]) {
 
 
-  Vector3 a = VEC3(0.5, 0.0, 0.001);
-  Vector3 n = vector3_unit_attempt(a);
-  VEC3_PRINT(n);
+  Vector3 a = VEC3(0.0000000000000000000000000000000001f, 0.0f, 0.0000000000000000001f);
+  Vector3 n = vector3_unit(a);
+
+
+  VEC3_PRINT_PRECISE(n);
+ 
   return 0;
 }
