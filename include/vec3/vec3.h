@@ -106,6 +106,7 @@ Vector3 vector3_downscale(Vector3 a, float scale);
 Vector3 vector3_min(Vector3 a, Vector3 b);
 Vector3 vector3_max(Vector3 a, Vector3 b);
 Vector3 vector3_mul(Vector3 a, Vector3 b);
+Vector3 vector3_inv(Vector3 a);
 
 
 float vector3_sum(Vector3 a);
@@ -122,6 +123,8 @@ float vector3_angle3d_to(Vector3 a, Vector3 b);
 Vector3 vector3_angle3d_to_radians_vector(Vector3 a, Vector3 b);
 Vector3 vector3_angle3d_to_deg_vector(Vector3 a, Vector3 b);
 Vector3 vector3_unit(Vector3 a);
+Vector3 vector3_unit_unsafe(Vector3 a);
+Vector3 vector3_unit_attempt(Vector3 a);
 float vector3_mag(Vector3 a);
 Vector3 *vector3_alloc(Vector3 a);
 void vector3_string(Vector3 a, char *buffer);

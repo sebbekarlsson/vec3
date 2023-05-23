@@ -91,6 +91,33 @@ Vector3 vector3_unit(Vector3 a) {
 
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
+
+Vector3 vector3_unit_unsafe(Vector3 a) {
+  float mag = vector3_mag(a);
+  return VEC3(a.x / mag, a.y / mag, a.z / mag);
+}
+
+Vector3 vector3_unit_attempt(Vector3 a) {
+  float mag = vector3_mag(a);
+
+  if (mag <= 0.000001f || isinf(mag) || isnan(mag)) {
+    if (isinf(a.x) && isinf(a.y) && !isinf(a.z)) return VEC3(1, 1, 0);
+    if (isinf(a.y) && isinf(a.z) && !isinf(a.x)) return VEC3(0, 1, 1);
+    if (isinf(a.x) && isinf(a.z) && !isinf(a.y)) return VEC3(1, 0, 1);
+    if (isinf(a.x)) return VEC3(1, 0, 0);
+    if (isinf(a.y)) return VEC3(0, 1, 0);
+    if (isinf(a.z)) return VEC3(0, 0, 1);
+    float m = -99999.0f;
+    Vector3 v = VEC31(0.0f);
+    if (fabsf(a.x) > m) { m = a.x; v = VEC3(1, 0, 0); }
+    if (fabsf(a.y) > m) { m = a.y; v = VEC3(0, 1, 0); }
+    if (fabsf(a.z) > m) { m = a.z; v = VEC3(0, 0, 1); }
+    return v;
+  }
+
+  return VEC3(a.x / mag, a.y / mag, a.z / mag);
+}
+
 float vector3_mag(Vector3 a) {
   return sqrtf(powf(a.x, 2) + powf(a.y, 2) + powf(a.z, 2));
 }
@@ -110,8 +137,10 @@ Vector3 *vector3_alloc(Vector3 a) {
   return 0;
 }
 
-Vector3 vector3_mul(Vector3 a, Vector3 b) {
-  return VEC3_OP(a, *, b);
+Vector3 vector3_mul(Vector3 a, Vector3 b) { return VEC3_OP(a, *, b); }
+
+Vector3 vector3_inv(Vector3 a) {
+  return VEC3(1.0f / a.x, 1.0f / a.y, 1.0f / a.z);
 }
 
 Vector3 vector3_round(Vector3 a) {
@@ -157,7 +186,6 @@ Vector3 vector3_project_centroid(Vector3 a, Vector3 normal, Vector3 centroid) {
   float dotscalar = vector3_dot(vector3_sub(a, centroid), normal);
   return vector3_sub(a, vector3_scale(normal, dotscalar));
 }
-
 
 
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale) {
