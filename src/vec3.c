@@ -1,3 +1,5 @@
+#include "cglm/vec3.h"
+#include "cglm/mat3.h"
 #include <math.h>
 #include <stdio.h>
 #include <vec3/macros.h>
@@ -287,6 +289,12 @@ Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b) {
   Vector3 v = VEC3(dest[0], dest[1], dest[2]);
   v.w = dest[3];
   return v;
+}
+
+Vector3 vector3_project_onto_mat3(Vector3 a, mat3 b) {
+  vec3 result = GLM_VEC3_ZERO_INIT;
+  glm_mat3_mulv(b, VEC3_GLM(a), result);
+  return VEC3(result[0], result[1], result[2]);
 }
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N) {

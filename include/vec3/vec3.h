@@ -143,6 +143,7 @@ Vector3 vector3_project_on_plane(Vector3 a, Vector3 normal);
 void vector3_serialize_int(Vector3 vec, char *buffer);
 
 Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b);
+Vector3 vector3_project_onto_mat3(Vector3 a, mat3 b);
 Vector3 vector3_mul_mat4(Vector3 a, mat4 m);
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N);
