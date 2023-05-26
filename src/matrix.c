@@ -1,4 +1,7 @@
+#include <stdio.h>
 #include <vec3/matrix.h>
+#include <vec3/macros.h>
+#include <string.h>
 
 
 void vec3_matrix_generate(float trans_x, float trans_y, float trans_z, float rot_x,
@@ -102,4 +105,45 @@ void vec3_mat3_print(mat3 v) {
     }
   }
   printf("\n]\n");
+}
+
+
+void vec3_mat3_to_string(mat3 v, char *out, int64_t capacity) {
+
+  int64_t cursor = 0;
+
+#define V_PRINT_OUT(s, ...)\
+   __VA_ARGS__);  \
+  cursor += strlen(s);
+
+
+  snprintf(&out[cursor], MAX(0, capacity-cursor), "[\n");
+  cursor += 2;
+  
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+
+      char tmp[64];
+      memset(&tmp[0], 0, 64*sizeof(char));
+      sprintf(tmp, "%12.6f", v[i][j]);
+      snprintf(&out[cursor], MAX(0, capacity-cursor), tmp, v[i][j]);
+      cursor += strlen(tmp);
+
+      if (j < 3-1) {
+        snprintf(&out[cursor], MAX(0, capacity-cursor), ",");
+        cursor += 1;
+      }
+    }
+
+    if (i < 3-1) {
+      snprintf(&out[cursor], MAX(0, capacity-cursor), "\n");
+      cursor += 1;
+    }
+  }
+
+  snprintf(&out[cursor], MAX(0, capacity-cursor), "\n]\n");
+  cursor += 3;
+
+
+#undef V_PRINT_OUT
 }

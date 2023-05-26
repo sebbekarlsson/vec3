@@ -1,3 +1,4 @@
+#include "cglm/mat3.h"
 #include <math.h>
 #include <vec3/vec3.h>
 #include <vec3/triangle.h>
@@ -7,15 +8,21 @@
 #include <vec3/vector4_buffer.h>
 #include <vec3/triangle_buffer.h>
 #include <vec3/util.h>
+#include <string.h>
 
 int main(int argc,  char* argv[]) {
 
 
-  Vector3 a = VEC3(0.0000000000000000000000000000000001f, 0.0f, 0.0000000000000000001f);
-  Vector3 n = vector3_unit(a);
+  mat3 m = GLM_MAT3_IDENTITY_INIT;
 
+  const int cap = 360;
+  m[2][1] = 0.49281f;
+  m[0][0] = 3.3929812f;
+  char buff[cap];
+  memset(&buff[0], 0, cap*sizeof(char));
+  vec3_mat3_to_string(m, buff, cap);
 
-  VEC3_PRINT_PRECISE(n);
+  printf("%s\n", buff);
  
   return 0;
 }

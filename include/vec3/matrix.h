@@ -1,6 +1,7 @@
 #ifndef VEC3_MATRIX_H
 #define VEC3_MATRIX_H
 #include <vec3/vec3.h>
+#include <stdint.h>
 
 typedef struct {
   mat4 value;
@@ -29,4 +30,5 @@ void vec3_matrix_generate(float trans_x, float trans_y, float trans_z, float rot
 
 void vec3_mat4_print(mat4 v);
 void vec3_mat3_print(mat3 v);
+void vec3_mat3_to_string(mat3 v, char* out, int64_t capacity);
 #endif
