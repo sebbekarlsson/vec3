@@ -283,19 +283,7 @@ void vector3_to_glm(Vector3 a, vec3 dest) {
   dest[2] = a.z;
 }
 
-Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b) {
-  vec4 dest;
-  glm_mat4_mulv(b, (vec4){a.x, a.y, a.z, a.w}, dest);
-  Vector3 v = VEC3(dest[0], dest[1], dest[2]);
-  v.w = dest[3];
-  return v;
-}
 
-Vector3 vector3_project_onto_mat3(Vector3 a, mat3 b) {
-  vec3 result = GLM_VEC3_ZERO_INIT;
-  glm_mat3_mulv(b, VEC3_GLM(a), result);
-  return VEC3(result[0], result[1], result[2]);
-}
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N) {
   return vector3_sub(I, vector3_mul(vector3_scale(N, 2.0f), vector3_mul(I, N)));
@@ -483,20 +471,27 @@ Vector3 vector3_call(Vector3 a, Vector3CallFunction func) {
   return VEC3(func(a.x), func(a.y), func(a.z));
 }
 
-Vector3 vector3_mul_mat4(Vector3 a, mat4 m) {
-  mat3 m3 = GLM_MAT3_ZERO_INIT;
-  glm_mat4_pick3(m, m3);
+Vector3 vector3_project_onto_mat4(Vector3 a, mat4 b) {
+  vec4 dest;
+  glm_mat4_mulv(b, (vec4){a.x, a.y, a.z, a.w}, dest);
+  Vector3 v = VEC3(dest[0], dest[1], dest[2]);
+  v.w = dest[3];
+  return v;
+}
 
-
+Vector3 vector3_project_onto_mat3(Vector3 a, mat3 b) {
   vec3 result = GLM_VEC3_ZERO_INIT;
-
-  glm_mat3_mulv(m3, VEC3_GLM(a), result);
-
-
-
+  glm_mat3_mulv(b, VEC3_GLM(a), result);
   return VEC3(result[0], result[1], result[2]);
 }
 
+Vector3 vector3_mul_mat4(Vector3 a, mat4 b) {
+  return vector3_project_onto_mat4(a, b);
+}
+
+Vector3 vector3_mul_mat3(Vector3 a, mat3 b) {
+  return vector3_project_onto_mat3(a, b);
+}
 
 float vector3_triple_product_scalar(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_dot(a, vector3_cross(b, c));
