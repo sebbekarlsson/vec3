@@ -114,6 +114,8 @@ float vector3_angle2d_to(Vector3 a, Vector3 b);
 Vector3 vector3_lerp(Vector3 from, Vector3 to, Vector3 scale);
 
 Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor);
+Vector3 vector3_lerp_safe(Vector3 from, Vector3 to, Vector3 scale);
+Vector3 vector3_lerp_factor_safe(Vector3 from, Vector3 to, float factor);
 
 float vector3_radians(Vector3 a);
 Vector3 vector3_round(Vector3 a);

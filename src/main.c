@@ -13,16 +13,8 @@
 int main(int argc,  char* argv[]) {
 
 
-  mat3 m = GLM_MAT3_IDENTITY_INIT;
-
-  const int cap = 360;
-  m[2][1] = 0.49281f;
-  m[0][0] = 3.3929812f;
-  char buff[cap];
-  memset(&buff[0], 0, cap*sizeof(char));
-  vec3_mat3_to_string(m, buff, cap);
-
-  printf("%s\n", buff);
+  Vector3 v = vector3_lerp_safe(VEC3(0.1f, -2.5f, 1.1f), VEC3(1.0f, 1.0f, 0.0f), VEC31(200.0f));
+  VEC3_PRINT_PRECISE(v);
  
   return 0;
 }

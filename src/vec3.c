@@ -1,5 +1,6 @@
 #include "cglm/vec3.h"
 #include "cglm/mat3.h"
+#include "cglm/util.h"
 #include <math.h>
 #include <stdio.h>
 #include <vec3/macros.h>
@@ -221,6 +222,16 @@ Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor) {
                 factor, result);
 
   return VEC3(result[0], result[1], result[2]);
+}
+
+Vector3 vector3_lerp_safe(Vector3 from, Vector3 to, Vector3 scale) {
+  scale.x = glm_clamp(scale.x, 0.0f, 1.0f);
+  scale.y = glm_clamp(scale.y, 0.0f, 1.0f);
+  scale.z = glm_clamp(scale.z, 0.0f, 1.0f);
+  return vector3_lerp(from, to, scale);
+}
+Vector3 vector3_lerp_factor_safe(Vector3 from, Vector3 to, float factor) {
+  return vector3_lerp_factor(from, to, glm_clamp(factor, 0.0f, 1.0f));
 }
 
 Vector3 vector3_project(Vector3 a, Vector3 b) {
