@@ -8,6 +8,9 @@
 #include <vec3/util.h>
 #include <stdint.h>
 
+Vector2 vector2_call(Vector2 a, Vector2CallFunction func) {
+  return VEC2(func(a.x), func(a.y));
+}
 
 Vector2 vector2_scale(Vector2 a, float s) { return VEC2(a.x * s, a.y * s); }
 Vector2 vector2_add(Vector2 a, Vector2 b) { return VEC2(a.x + b.x, a.y + b.y); }

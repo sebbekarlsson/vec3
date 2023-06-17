@@ -88,6 +88,8 @@ typedef struct {
 } Vector3PairIndexed;
 
 //////////////////////////// VEC2
+typedef float (*Vector2CallFunction)(float v);
+Vector2 vector2_call(Vector2 a, Vector2CallFunction func);
 void vector2_copy(Vector2 *dest, Vector2 src);
 void vector2Double_copy(Vector2Double *dest, Vector2Double src);
 Vector2 vector2_add(Vector2 a, Vector2 b);
