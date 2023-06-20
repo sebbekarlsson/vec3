@@ -25,6 +25,16 @@ Vector2 vector2_cross(Vector2 a, Vector2 b) {
   return VEC2(c.x, c.y);
 }
 
+Vector2 vector2_unit(Vector2 a) {
+  float mag = vector2_mag(a);
+
+  if (mag == 0.0 || (isinf(mag) || isnan(mag))) {
+    return VEC2(0, 0);
+  }
+
+  return VEC2(a.x / mag, a.y / mag);
+}
+
 float vector2_mag(Vector2 a) {
   return sqrtf(powf(a.x, 2) + powf(a.y, 2));
 }

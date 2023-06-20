@@ -100,6 +100,7 @@ float vector2_dot(Vector2 a, Vector2 b);
 Vector2 vector2_lerp(Vector2 from, Vector2 to, Vector2 scale);
 Vector2 vector2_lerp_factor(Vector2 from, Vector2 to, float scale);
 float vector2_mag(Vector2 a);
+Vector2 vector2_unit(Vector2 a);
 
 
 /////////////////////////// VEC3
