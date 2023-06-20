@@ -189,7 +189,7 @@ bool vector3_is_inf(Vector3 a);
 typedef float (*Vector3CallFunction)(float v);
 Vector3 vector3_call(Vector3 a, Vector3CallFunction func);
 
-Vector3 vector3_rotate(Vector3 v, float angle, Vector3 axis);
+Vector3 vector3_rotate(Vector3 v, Vector3 axis, float angle);
 Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q);
 
 uint64_t vector3_hash(Vector3 v);
