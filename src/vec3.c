@@ -8,6 +8,10 @@
 #include <vec3/util.h>
 #include <stdint.h>
 
+static float v_lerp(float from, float to, float scale) {
+  return from + (to - from) * scale;
+}
+
 Vector2 vector2_call(Vector2 a, Vector2CallFunction func) {
   return VEC2(func(a.x), func(a.y));
 }
@@ -21,6 +25,10 @@ Vector2 vector2_cross(Vector2 a, Vector2 b) {
   return VEC2(c.x, c.y);
 }
 
+float vector2_mag(Vector2 a) {
+  return sqrtf(powf(a.x, 2) + powf(a.y, 2));
+}
+
 Vector2 vector2_reflect(Vector2 I, Vector2 N) {
   return vector2_sub(I, vector2_mul(vector2_scale(N, 2.0f), vector2_mul(I, N)));
 }
@@ -32,6 +40,17 @@ float vector2_dot(Vector2 a, Vector2 b) {
   return dot_x + dot_y;
 }
 
+Vector2 vector2_lerp(Vector2 from, Vector2 to, Vector2 scale) {
+  float x = v_lerp(from.x, to.x, scale.x);
+  float y = v_lerp(from.y, to.y, scale.y);
+  return VEC2(x, y);
+}
+
+Vector2 vector2_lerp_factor(Vector2 from, Vector2 to, float scale) {
+  float x = v_lerp(from.x, to.x, scale);
+  float y = v_lerp(from.y, to.y, scale);
+  return VEC2(x, y);
+}
 
 void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->x = src.x;

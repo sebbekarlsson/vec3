@@ -97,6 +97,9 @@ Vector2 vector2_sub(Vector2 a, Vector2 b);
 Vector2 vector2_mul(Vector2 a, Vector2 b);
 Vector2 vector2_scale(Vector2 a, float s);
 float vector2_dot(Vector2 a, Vector2 b);
+Vector2 vector2_lerp(Vector2 from, Vector2 to, Vector2 scale);
+Vector2 vector2_lerp_factor(Vector2 from, Vector2 to, float scale);
+float vector2_mag(Vector2 a);
 
 
 /////////////////////////// VEC3
@@ -216,6 +219,13 @@ Vector4 vector4_sub(Vector4 a, Vector4 b);
 #define VEC3(x, y, z) ((Vector3){x, y, z})
 #define VEC31(V)(VEC3(V, V, V))
 #define VEC2(x, y) ((Vector2){x, y})
+
+#define VEC2_PRINT(a)                                                          \
+  { printf("(%2.2f, %2.2f)\n", a.x, a.y); }
+
+
+#define VEC2_PRINT_PRECISE(a)                                                          \
+  { printf("(%12.6f, %12.6f)\n", a.x, a.y); }
 
 #define VEC3_GLM(v)((vec3){ v.x, v.y, v.z })
 
