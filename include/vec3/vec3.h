@@ -3,6 +3,7 @@
 #include <cglm/call.h>
 #include <cglm/cglm.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #define VECTOR3_SERIALIZE_CAP 256
 #define VEC3_TINY_FLOAT 0.0000001f
@@ -163,7 +164,7 @@ Vector3 vector3_reflect(Vector3 I, Vector3 N);
 Vector3 vector3_xz(Vector3 v);
 
 Vector3 vector_downscale(Vector3 a, float scale);
-
+bool vector3_is_dangerous(Vector3 a);
 
 Vector3 vector3_find_min_vec(Vector3* vectors, uint32_t length);
 Vector3 vector3_find_max_vec(Vector3* vectors, uint32_t length);

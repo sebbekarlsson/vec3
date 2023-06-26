@@ -560,6 +560,10 @@ Vector3 vector3_rotate(Vector3 v, Vector3 axis, float angle) {
 }
 
 
+bool vector3_is_dangerous(Vector3 a) {
+  return number_is_bad(a.x) || number_is_bad(a.y) || number_is_bad(a.z);
+}
+
 Vector3 vector3_rotate_by_quat(Vector3 v, Vector3 pivot, vec4 q) {
   mat4 m = GLM_MAT4_IDENTITY_INIT;
   glm_quat_rotate_at(m, q, VEC3_GLM(pivot));
