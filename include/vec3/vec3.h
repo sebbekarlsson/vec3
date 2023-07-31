@@ -113,6 +113,7 @@ Vector3 vector3_downscale(Vector3 a, float scale);
 Vector3 vector3_min(Vector3 a, Vector3 b);
 Vector3 vector3_max(Vector3 a, Vector3 b);
 Vector3 vector3_mul(Vector3 a, Vector3 b);
+Vector3 vector3_div(Vector3 a, Vector3 b);
 Vector3 vector3_inv(Vector3 a);
 
 
@@ -250,5 +251,6 @@ Vector4 vector4_sub(Vector4 a, Vector4 b);
 
 #define VEC4_PRINT_PRECISE(a)                                                          \
   { printf("(%12.6f, %12.6f, %12.6f, %12.6f)\n", a.x, a.y, a.z, a.w); }
+
 
 #endif

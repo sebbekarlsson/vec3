@@ -18,4 +18,28 @@
 #endif
 
 
+#define VEC3_CLI_RED "\x1B[31m"
+#define VEC3_CLI_GREEN "\x1B[32m"
+#define VEC3_CLI_YELLLOW "\x1B[33m"
+#define VEC3_CLI_BLUE "\x1B[34m"
+#define VEC3_CLI_MAGENTA "\x1B[35m"
+#define VEC3_CLI_CYAN "\x1B[36m"
+#define VEC3_CLI_WHITE "\x1B[37m"
+#define VEC3_CLI_RESET "\x1B[0m"
+
+#define VEC3_WARNING(...)                                                       \
+  {                                                                            \
+    printf(VEC3_CLI_RED "(VEC3)(Warning)(%s:%d): \n" VEC3_CLI_RESET, __func__,    \
+           __LINE__);                                                          \
+    fprintf(__VA_ARGS__);                                                      \
+  }
+
+
+#define VEC3_ASSERT_RETURN(expr, ret)                                           \
+  {                                                                            \
+    if (!(expr)) {                                                             \
+      VEC3_WARNING(stderr, "(VEC3): Assertion failed: %s.\n", #expr);            \
+      return ret;                                                              \
+    }                                                                          \
+  }
 #endif

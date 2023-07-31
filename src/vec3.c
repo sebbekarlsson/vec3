@@ -8,6 +8,31 @@
 #include <vec3/util.h>
 #include <stdint.h>
 
+#define VEC3_DIVISION_EPS 0.000001f
+
+static inline bool value_is_zero(float v) { return fabsf(v) <= VEC3_DIVISION_EPS; }
+
+static inline bool number_is_bad(float v) {
+  return (isinf(v) || isnan(v) || fabsf(v) >= FLT_MAX);
+}
+
+static inline bool can_be_divided_with(float v) {
+  return value_is_zero(v) == false && number_is_bad(v) == false;
+}
+
+static inline float fix_divisor(float v) {
+  return v;
+  if (can_be_divided_with(v)) return v;
+  
+  float sign = vec3_sign(v);
+  
+  if (number_is_bad(sign)) {
+    sign = 1.0;
+  }
+
+  return sign * VEC3_DIVISION_EPS;
+}
+
 static float v_lerp(float from, float to, float scale) {
   return from + (to - from) * scale;
 }
@@ -188,6 +213,15 @@ Vector3 *vector3_alloc(Vector3 a) {
 }
 
 Vector3 vector3_mul(Vector3 a, Vector3 b) { return VEC3_OP(a, *, b); }
+
+Vector3 vector3_div(Vector3 a, Vector3 b) {
+  return (Vector3){
+    .x = a.x / fix_divisor(b.x),
+    .y = a.y / fix_divisor(b.y),
+    .z = a.z / fix_divisor(b.z)
+  };
+}
+
 
 Vector3 vector3_inv(Vector3 a) {
   return VEC3(1.0f / a.x, 1.0f / a.y, 1.0f / a.z);
@@ -455,9 +489,7 @@ Vector3 vector3_triple_product(Vector3 a, Vector3 b, Vector3 c) {
   return vector3_cross(a, vector3_cross(b, c));
 }
 
-static inline bool number_is_bad(float v) {
-  return (isinf(v) || isnan(v) || fabsf(v) >= FLT_MAX);
-}
+
 
 static float v_clamp(float v, float min, float max) {
   return fmaxf(min, fminf(max, v));
