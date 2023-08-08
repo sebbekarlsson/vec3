@@ -564,6 +564,12 @@ Vector3 vector3_mul_mat4(Vector3 a, mat4 b) {
   return vector3_project_onto_mat4(a, b);
 }
 
+Vector3 vector3_mul_mat4_w(Vector3 a, mat4 b, float w) {
+  a.w = w;
+  return vector3_mul_mat4(a, b);
+}
+
+
 Vector3 vector3_mul_mat3(Vector3 a, mat3 b) {
   return vector3_project_onto_mat3(a, b);
 }
