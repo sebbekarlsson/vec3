@@ -115,6 +115,7 @@ Vector3 vector3_max(Vector3 a, Vector3 b);
 Vector3 vector3_mul(Vector3 a, Vector3 b);
 Vector3 vector3_div(Vector3 a, Vector3 b);
 Vector3 vector3_inv(Vector3 a);
+Vector3 vector3_clamp_mag(Vector3 v, float min_mag, float max_mag);
 
 
 float vector3_sum(Vector3 a);

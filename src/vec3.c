@@ -12,6 +12,8 @@
 
 static inline bool value_is_zero(float v) { return fabsf(v) <= VEC3_DIVISION_EPS; }
 
+static inline float clamp(float v, float min, float max) { return fmaxf(min, fminf(max, v)); }
+
 static inline bool number_is_bad(float v) {
   return (isinf(v) || isnan(v) || fabsf(v) >= FLT_MAX);
 }
@@ -222,6 +224,12 @@ Vector3 vector3_div(Vector3 a, Vector3 b) {
   };
 }
 
+Vector3 vector3_clamp_mag(Vector3 v, float min_mag, float max_mag) {
+  Vector3 n = vector3_unit(v);
+  float mag = vector3_mag(v);
+  float clamped_mag = clamp(mag, min_mag, max_mag);
+  return vector3_scale(n, clamped_mag);
+}
 
 Vector3 vector3_inv(Vector3 a) {
   return VEC3(1.0f / a.x, 1.0f / a.y, 1.0f / a.z);

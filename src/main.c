@@ -41,37 +41,28 @@ static float v3_hash_float(float* g) {
   return next;
 }
 
-static float v3_rand_signed(float *g) {
-  float v = v3_hash_float(g);
+static float v3_rand_signed(uint32_t* seed) {
+  *seed = v3_hash_uint(*seed);
+  float v = ((float)*seed) / (float)0xFFFFFFFFU;
   return (v * 2.0f - 1.0f);
 }
 
 
-static Vector3Batch generate_random_vec3_batch(float *seed, int64_t count) {
-  Vector3* vecs = (Vector3*)calloc(count, sizeof(Vector3));
+#define RANDOM_VEC3(seed) VEC3(v3_rand_signed(seed), v3_rand_signed(seed), v3_rand_signed(seed))
 
-  for (int64_t i = 0; i < count; i++) {
-    vecs[i] = VEC3(v3_rand_signed(seed), v3_rand_signed(seed), v3_rand_signed(seed));
-  }
-  
-  return (Vector3Batch){ .items = vecs, .length = count };
-}
 
 int main(int argc,  char* argv[]) {
 
-  float seed = 0.39188245f;
 
-  int64_t count = 16;
-
-  Vector3Batch A = generate_random_vec3_batch(&seed, count); 
-  Vector3Batch B = generate_random_vec3_batch(&seed, count); 
-  Vector3Batch C = generate_random_vec3_batch(&seed, count); 
+  uint32_t seed = 39281U;
   
+  int count = 16;
 
-  Vector3Batch R = vector3_batch_mul(vector3_batch_cross(vector3_batch_div(A, B, C), B, C), B, C);
-  
-  //R = vector3_batch_unit(R, R);
-  vector3_batch_print(R, 1, 2, stdout);
+  for (int i = 0; i < count; i++) {
+    Vector3 v = RANDOM_VEC3(&seed);
+    v = vector3_scale(v, -200000.0f);
+    printf("mag: %12.6f\n", vector3_mag(v));
+  }
 
   return 0;
 }
