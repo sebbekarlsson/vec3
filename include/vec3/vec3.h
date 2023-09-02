@@ -102,6 +102,7 @@ Vector2 vector2_lerp(Vector2 from, Vector2 to, Vector2 scale);
 Vector2 vector2_lerp_factor(Vector2 from, Vector2 to, float scale);
 float vector2_mag(Vector2 a);
 Vector2 vector2_unit(Vector2 a);
+Vector2 vector2_saturate(Vector2 a);
 
 
 /////////////////////////// VEC3
@@ -116,6 +117,7 @@ Vector3 vector3_mul(Vector3 a, Vector3 b);
 Vector3 vector3_div(Vector3 a, Vector3 b);
 Vector3 vector3_inv(Vector3 a);
 Vector3 vector3_clamp_mag(Vector3 v, float min_mag, float max_mag);
+Vector3 vector3_saturate(Vector3 a);
 
 
 float vector3_sum(Vector3 a);

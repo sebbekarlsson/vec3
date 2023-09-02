@@ -89,6 +89,10 @@ Vector2 vector2_lerp_factor(Vector2 from, Vector2 to, float scale) {
   return VEC2(x, y);
 }
 
+Vector2 vector2_saturate(Vector2 a) {
+  return VEC2(clamp(a.x, 0.0f, 1.0f), clamp(a.y, 0.0f, 1.0f));
+}
+
 void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->x = src.x;
   dest->y = src.y;
@@ -96,6 +100,9 @@ void vector3_copy(Vector3 *dest, Vector3 src) {
   dest->w = src.w;
 }
 
+Vector3 vector3_saturate(Vector3 a) {
+  return VEC3(clamp(a.x, 0.0f, 1.0f), clamp(a.y, 0.0f, 1.0f), clamp(a.z, 0.0f, 1.0f));
+}
 
 Vector3 vector3_add(Vector3 a, Vector3 b) {
   return VEC3(a.x + b.x, a.y + b.y, a.z + b.z);

@@ -55,6 +55,15 @@ int main(int argc,  char* argv[]) {
 
 
   uint32_t seed = 39281U;
+  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
+  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
+  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
+  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
+  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
+  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
+  VEC3_PRINT_PRECISE(vector3_saturate(VEC31(v3_rand_signed(&seed))));
+  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
+  return 0;
   
   int count = 16;
 
