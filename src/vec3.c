@@ -270,6 +270,14 @@ Vector3 vector3_tangent(Vector3 normal) {
   return vector3_unit(vector3_cross(normal, perpendic));
 }
 
+Vector3 vector3_clamp_factor(Vector3 v, float min, float max) {
+  return VEC3(
+    clamp(v.x, min, max), 
+    clamp(v.y, min, max), 
+    clamp(v.z, min, max) 
+  );
+}
+
 float vector3_sum(Vector3 a) { return a.x + a.y + a.z; }
 
 float vector3_radians(Vector3 a) { return atan2f(a.y, a.x); }

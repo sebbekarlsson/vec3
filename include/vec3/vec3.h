@@ -131,6 +131,8 @@ Vector3 vector3_lerp_factor_safe(Vector3 from, Vector3 to, float factor);
 Vector3 vector3_bitangent(Vector3 normal, Vector3 tangent);
 Vector3 vector3_tangent(Vector3 normal);
 
+Vector3 vector3_clamp_factor(Vector3 v, float min, float max);
+
 float vector3_radians(Vector3 a);
 Vector3 vector3_round(Vector3 a);
 float vector3_angle2d(Vector3 a);
