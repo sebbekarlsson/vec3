@@ -253,6 +253,22 @@ float vector3_angle2d(Vector3 a) {
   // return (float)((int)(360+roundf(degrees))%360);
 }
 
+Vector3 vector3_bitangent(Vector3 normal, Vector3 tangent) {
+  return vector3_unit(vector3_cross(normal, tangent));
+}
+
+Vector3 vector3_tangent(Vector3 normal) {
+  Vector3 perpendic = VEC31(0);
+  if (fabsf(normal.x) < fabsf(normal.y) && fabsf(normal.x) < fabsf(normal.z)) {
+    perpendic = VEC3(1, 0, 0);
+  } else if (fabsf(normal.y) < fabsf(normal.z)) {
+    perpendic = VEC3(0, 1, 0);
+  } else {
+    perpendic = VEC3(0, 0, 1);
+  }
+
+  return vector3_unit(vector3_cross(normal, perpendic));
+}
 
 float vector3_sum(Vector3 a) { return a.x + a.y + a.z; }
 
