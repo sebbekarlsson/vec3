@@ -405,6 +405,10 @@ Vector3 vector3_reflect(Vector3 I, Vector3 N) {
   return vector3_sub(I, vector3_mul(vector3_scale(N, 2.0f), vector3_mul(I, N)));
 }
 
+Vector3 vector3_relax(Vector3 a, float relax) {
+  return vector3_scale(a, 1.0f / (1.0f + fabsf(relax)));
+}
+
 float vector3_angle3d(Vector3 a) {
   Vector3 n = vector3_unit(a);
   return vector3_angle3d_to(VEC3(0, 0, 0), n);

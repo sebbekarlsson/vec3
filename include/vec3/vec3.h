@@ -171,6 +171,8 @@ Vector3 vector3_mul_mat4(Vector3 a, mat4 m);
 
 Vector3 vector3_reflect(Vector3 I, Vector3 N);
 
+Vector3 vector3_relax(Vector3 a, float relax);
+
 Vector3 vector3_xz(Vector3 v);
 
 Vector3 vector_downscale(Vector3 a, float scale);

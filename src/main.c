@@ -53,25 +53,10 @@ static float v3_rand_signed(uint32_t* seed) {
 
 int main(int argc,  char* argv[]) {
 
+  Vector3 v = VEC3(1, 2, 3);
 
-  uint32_t seed = 39281U;
-  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
-  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
-  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
-  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
-  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
-  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
-  VEC3_PRINT_PRECISE(vector3_saturate(VEC31(v3_rand_signed(&seed))));
-  VEC3_PRINT_PRECISE(VEC31(v3_rand_signed(&seed)));
-  return 0;
-  
-  int count = 16;
+  v = vector3_relax(v, 0.1f);
 
-  for (int i = 0; i < count; i++) {
-    Vector3 v = RANDOM_VEC3(&seed);
-    v = vector3_scale(v, -200000.0f);
-    printf("mag: %12.6f\n", vector3_mag(v));
-  }
-
+  VEC3_PRINT_PRECISE(v);
   return 0;
 }
