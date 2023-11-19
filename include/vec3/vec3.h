@@ -264,4 +264,8 @@ Vector4 vector4_sub(Vector4 a, Vector4 b);
   { printf("(%12.6f, %12.6f, %12.6f, %12.6f)\n", a.x, a.y, a.z, a.w); }
 
 
+
+#define VEC3_SPREAD(v) v.x, v.y, v.z
+#define VEC4_SPREAD(v) v.x, v.y, v.z, v.w
+
 #endif

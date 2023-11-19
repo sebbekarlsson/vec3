@@ -55,8 +55,6 @@ int main(int argc,  char* argv[]) {
 
   Vector3 v = VEC3(1, 2, 3);
 
-  v = vector3_relax(v, 0.1f);
-
-  VEC3_PRINT_PRECISE(v);
+  printf("test(%1.3f, %1.3f, %1.3f)", VEC3_SPREAD(v));
   return 0;
 }
