@@ -104,6 +104,10 @@ Vector3 vector3_saturate(Vector3 a) {
   return VEC3(clamp(a.x, 0.0f, 1.0f), clamp(a.y, 0.0f, 1.0f), clamp(a.z, 0.0f, 1.0f));
 }
 
+Vector3 vector3_rescale(Vector3 v, float scale) {
+  return vector3_scale(vector3_unit(v), scale);
+}
+
 Vector3 vector3_add(Vector3 a, Vector3 b) {
   return VEC3(a.x + b.x, a.y + b.y, a.z + b.z);
 }

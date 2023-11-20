@@ -119,6 +119,7 @@ Vector3 vector3_inv(Vector3 a);
 Vector3 vector3_clamp_mag(Vector3 v, float min_mag, float max_mag);
 Vector3 vector3_saturate(Vector3 a);
 
+Vector3 vector3_rescale(Vector3 v, float scale);
 
 float vector3_sum(Vector3 a);
 float vector3_angle2d_to(Vector3 a, Vector3 b);
