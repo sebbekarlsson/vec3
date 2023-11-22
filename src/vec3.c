@@ -158,7 +158,7 @@ Vector3 vector3_downscale(Vector3 a, float scale) {
 Vector3 vector3_unit(Vector3 a) {
   float mag = vector3_mag(a);
 
-  if (mag == 0.0 || (isinf(mag) || isnan(mag))) {
+  if (mag <= 0.00000000000000000000000000000000000001f || (isinf(mag) || isnan(mag))) {
     return VEC3(0, 0, 0);
   }
 
@@ -170,14 +170,17 @@ Vector3 vector3_unit_unsafe(Vector3 a) {
   return VEC3(a.x / mag, a.y / mag, a.z / mag);
 }
 
+static inline bool is_bad(float v) {
+  return isinf(v) || isnan(v) || fabsf(v) >= FLT_MAX;
+}
 
 Vector3 vector3_unit_attempt_fix(Vector3 a) {
-  if (isinf(a.x) && isinf(a.y) && !isinf(a.z)) return VEC3(1, 1, 0);
-  if (isinf(a.y) && isinf(a.z) && !isinf(a.x)) return VEC3(0, 1, 1);
-  if (isinf(a.x) && isinf(a.z) && !isinf(a.y)) return VEC3(1, 0, 1);
-  if (isinf(a.x)) return VEC3(1, 0, 0);
-  if (isinf(a.y)) return VEC3(0, 1, 0);
-  if (isinf(a.z)) return VEC3(0, 0, 1);
+  if (is_bad(a.x) && is_bad(a.y) && !is_bad(a.z)) return VEC3(1, 1, 0);
+  if (is_bad(a.y) && is_bad(a.z) && !is_bad(a.x)) return VEC3(0, 1, 1);
+  if (is_bad(a.x) && is_bad(a.z) && !is_bad(a.y)) return VEC3(1, 0, 1);
+  if (is_bad(a.x)) return VEC3(1, 0, 0);
+  if (is_bad(a.y)) return VEC3(0, 1, 0);
+  if (is_bad(a.z)) return VEC3(0, 0, 1);
   
   if (ceilf(fabsf(a.x)) == 0.0 && ceilf(fabsf(a.y)) == 0.0 && ceilf(fabsf(a.z)) == 0.0)
     return VEC31(0.0f);

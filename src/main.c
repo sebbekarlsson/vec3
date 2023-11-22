@@ -57,5 +57,7 @@ int main(int argc,  char* argv[]) {
   v = vector3_rescale(v, 0.5f);
 
   printf("test(%1.3f, %1.3f, %1.3f)\n", VEC3_SPREAD(v));
+
+
   return 0;
 }
