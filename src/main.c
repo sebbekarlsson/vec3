@@ -53,11 +53,18 @@ static float v3_rand_signed(uint32_t* seed) {
 
 int main(int argc,  char* argv[]) {
 
-  Vector3 v = VEC3(1, 2, 3);
-  v = vector3_rescale(v, 0.5f);
+  Vector3 n =  VEC3(0.2014f, -3.392f, 1.193f);
 
-  printf("test(%1.3f, %1.3f, %1.3f)\n", VEC3_SPREAD(v));
 
+  printf("Bad:\n");
+  Vector3Pair a = vector3_tangents_bad(n);
+  VEC3_PRINT_PRECISE(a.a);
+  VEC3_PRINT_PRECISE(a.b);
+
+  printf("Good:\n");
+  Vector3Pair b = vector3_tangents_good(n);
+  VEC3_PRINT_PRECISE(b.a);
+  VEC3_PRINT_PRECISE(b.b);
 
   return 0;
 }

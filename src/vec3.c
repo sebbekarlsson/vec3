@@ -257,24 +257,37 @@ float vector3_angle2d(Vector3 a) {
   float angle = atan2f(a.x, a.y);
   float degrees = 180 * angle / M_PI;
   return degrees;
-  // return (float)((int)(360+roundf(degrees))%360);
 }
 
-Vector3 vector3_bitangent(Vector3 normal, Vector3 tangent) {
-  return vector3_unit(vector3_cross(normal, tangent));
-}
-
-Vector3 vector3_tangent(Vector3 normal) {
-  Vector3 perpendic = VEC31(0);
-  if (fabsf(normal.x) < fabsf(normal.y) && fabsf(normal.x) < fabsf(normal.z)) {
-    perpendic = VEC3(1, 0, 0);
-  } else if (fabsf(normal.y) < fabsf(normal.z)) {
-    perpendic = VEC3(0, 1, 0);
+Vector3Pair vector3_tangents_bad(Vector3 n) {
+  float absX = fabsf(n.x);
+  float absY = fabsf(n.y);
+  float absZ = fabsf(n.z);
+  Vector3 axis = VEC3(0.0f, 0.0f, 0.0f);
+  if (absX > absY) {
+    if (absX > absZ)
+      axis.x = 1.0f; // X > Y > Z, X > Z > Y
+    else
+      axis.z = 1.0f; // Z > X > Y
   } else {
-    perpendic = VEC3(0, 0, 1);
+    if (absY > absZ)
+      axis.y = 1.0f; // Y > X > Z, Y > Z > X
+    else
+      axis.z = 1.0f; // Z > Y > X
   }
+   
+  // compute tangents
+  Vector3 t1 = vector3_unit(vector3_cross(n, axis));
+  Vector3 t2 = vector3_unit(vector3_cross(n, t1));
+  
+  return (Vector3Pair) { .a = t1, .b = t2 };
+}
 
-  return vector3_unit(vector3_cross(normal, perpendic));
+Vector3Pair vector3_tangents_good(Vector3 n) {
+  Vector3 t1 = vector3_unit(n.x >= 0.57735f ? VEC3(n.y, -n.x, 0.0f) : VEC3(0.0f, n.z, -n.y));
+  Vector3 t2 = vector3_cross(n, t1);
+
+  return (Vector3Pair){ .a = t1, .b = t2 };
 }
 
 Vector3 vector3_clamp_factor(Vector3 v, float min, float max) {

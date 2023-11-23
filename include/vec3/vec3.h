@@ -129,8 +129,8 @@ Vector3 vector3_lerp_factor(Vector3 from, Vector3 to, float factor);
 Vector3 vector3_lerp_safe(Vector3 from, Vector3 to, Vector3 scale);
 Vector3 vector3_lerp_factor_safe(Vector3 from, Vector3 to, float factor);
 
-Vector3 vector3_bitangent(Vector3 normal, Vector3 tangent);
-Vector3 vector3_tangent(Vector3 normal);
+Vector3Pair vector3_tangents_bad(Vector3 normal);
+Vector3Pair vector3_tangents_good(Vector3 normal);
 
 Vector3 vector3_clamp_factor(Vector3 v, float min, float max);
 
