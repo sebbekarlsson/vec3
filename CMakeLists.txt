@@ -11,18 +11,20 @@ file(GLOB vec3_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c ${CMAKE_CURRENT_SOURCE_
 
 message(${vec3_files})
 
+set(VEC3_FLAGS -msse4.1 -fPIC)
+
 add_executable(vec3_e ${vec3_files})
-target_compile_options(vec3_e PRIVATE -Wall)
+target_compile_options(vec3_e PRIVATE -Wall ${VEC3_FLAGS})
 
 
 
 list(FILTER vec3_files EXCLUDE REGEX "main.c")
 
 add_library(vec3 SHARED ${vec3_files})
-add_library(vec3_static STATIC ${vec3_files})
+add_library(vec3_static STATIC ${vec3_files} )
 
-target_compile_options(vec3 PUBLIC -fPIC)
-target_compile_options(vec3_static PUBLIC -fPIC)
+target_compile_options(vec3 PUBLIC ${VEC3_FLAGS})
+target_compile_options(vec3_static PUBLIC ${VEC3_FLAGS})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 

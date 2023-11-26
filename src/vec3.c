@@ -1,12 +1,13 @@
-#include "cglm/vec3.h"
-#include "cglm/mat3.h"
-#include "cglm/util.h"
+#include <cglm/vec3.h>
+#include <cglm/mat3.h>
+#include <cglm/util.h>
 #include <math.h>
 #include <stdio.h>
 #include <vec3/macros.h>
 #include <vec3/vec3.h>
 #include <vec3/util.h>
 #include <stdint.h>
+#include <smmintrin.h> 
 
 #define VEC3_DIVISION_EPS 0.000001f
 
@@ -126,6 +127,13 @@ float vector3_dot(Vector3 a, Vector3 b) {
   float dot_z = a.z * b.z;
 
   return dot_x + dot_y + dot_z;
+}
+
+float vector3_dot_simd(Vector3 a, Vector3 b) {
+  __m128 vecA = _mm_load_ps((float*)&a);
+  __m128 vecB = _mm_load_ps((float*)&b);
+  __m128 dot = _mm_dp_ps(vecA, vecB, 0x71);
+  return _mm_cvtss_f32(dot);
 }
 
 void vector2_copy(Vector2 *dest, Vector2 src) {

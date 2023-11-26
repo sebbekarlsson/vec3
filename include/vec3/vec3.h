@@ -151,6 +151,7 @@ Vector3 vector3_project_centroid(Vector3 a, Vector3 normal, Vector3 centroid);
 Vector3 vector3_compute_normal(Vector3 v1, Vector3 v2, Vector3 v3);
 bool vector3_is_zero(Vector3 a);
 float vector3_dot(Vector3 a, Vector3 b);
+float vector3_dot_simd(Vector3 a, Vector3 b);
 bool vector3_compare(Vector3 a, Vector3 b);
 Vector3 vector3_cross(Vector3 a, Vector3 b);
 float vector3_distance2d(Vector3 a, Vector3 b);
