@@ -21,6 +21,12 @@ typedef struct {
 } Vector3Pair;
 
 typedef struct {
+  Vector3 a;
+  Vector3 b;
+  Vector3 c;
+} Vector3Triple;
+
+typedef struct {
   float x;
   float y;
   float z;
